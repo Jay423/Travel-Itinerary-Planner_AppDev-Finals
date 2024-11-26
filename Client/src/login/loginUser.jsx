@@ -37,7 +37,7 @@ function App() {
 
   return (
     <div className="register_container">
-      <h1>Register</h1>
+      <h1>Login</h1>
       <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label>Email:</label>
@@ -63,7 +63,11 @@ function App() {
         </div>
         {error && <p className="error-message">{error}</p>}
         {success && <p className="success-message">{success}</p>}
-        <button type="submit">Register</button>
+        <button type="submit">Login</button>
+
+        <p>
+          Already have an account? <a href="/register">Register here</a>
+        </p>
       </form>
     </div>
   );
