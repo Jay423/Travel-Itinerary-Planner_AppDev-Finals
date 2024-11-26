@@ -4,6 +4,7 @@ import axios from 'axios';
 function App() {
   const [data, setData] = useState({ email: '', password: '' });
   const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
 
   const handleInputChange = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
@@ -11,6 +12,10 @@ function App() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    setError('');
+    setSuccess('');
+
     if (!data.email || !data.password) {
       setError('Both fields are required!');
       return;
@@ -18,10 +23,15 @@ function App() {
 
     try {
       const response = await axios.post('http://localhost:5001/routes/register', data);
-      alert(`Register Successful! Response: ${JSON.stringify(response.data)}`);
-      setError('');
+
+      if (response.status === 201) {
+        setData({ email: '', password: '' }); 
+        setSuccess(response.data.message || 'Registration successful!');
+      }
+      
     } catch (err) {
       setError(err.response?.data?.message || 'Error connecting to the server.');
+      setSuccess('');
     }
   };
 
@@ -52,6 +62,7 @@ function App() {
           />
         </div>
         {error && <p className="error-message">{error}</p>}
+        {success && <p className="success-message">{success}</p>}
         <button type="submit">Register</button>
       </form>
     </div>
