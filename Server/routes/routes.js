@@ -5,5 +5,6 @@ const rateLimiter = require('../middleware/rate_limiter');
 
 router.get('/users', userController.getAllUsersController);
 router.post('/register', rateLimiter, userController.registerUserController);
+router.post('/login', rateLimiter, userController.loginUserController);
 
 module.exports = router;
