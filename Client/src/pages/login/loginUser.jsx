@@ -35,6 +35,10 @@ function App() {
     }
   };
 
+  const loginClick = () => {
+    window.location.href = '/plan';
+  };
+
   return (
     <div className="register_container">
       <h1>Login</h1>
@@ -63,7 +67,7 @@ function App() {
         </div>
         {error && <p className="error-message">{error}</p>}
         {success && <p className="success-message">{success}</p>}
-        <button type="submit">Login</button>
+        <button onClick={loginClick} type="submit">Login</button>
 
         <p>
           Already have an account? <a href="/register">Register here</a>

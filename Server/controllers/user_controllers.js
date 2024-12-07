@@ -38,12 +38,17 @@ const registerUserController = async (req, res) => {
       }
 
     const { email, password } = req.body;
-
     const users = await getAllUsers();
+
     const emailExists = users.find(user => user.email === email);
-      if (emailExists) {
-        return res.status(400).json({ message: 'Email already exists' });
-      }
+    const emailFormat = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    
+    if (emailExists) {
+      return res.status(400).json({ message: 'Email already exists' });
+    }
+    else if(!emailFormat.test(email)) {
+      return res.status(400).json({ message: 'Invalid email format' });
+    }
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
@@ -72,7 +77,7 @@ const loginUserController = async (req, res) => {
       if (!user) {
         return res.status(404).json({ message: 'User not found' });
       }
-
+    
     const passwordMatch = await bcrypt.compare(password, user.password);
       if (!passwordMatch) {
         return res.status(401).json({ message: 'Invalid credentials' });
