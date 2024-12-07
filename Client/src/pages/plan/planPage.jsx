@@ -16,7 +16,7 @@ function App() {
         <Navbar />
       </div>
       <div className="register_container flex-grow mt-16">
-        <h1>Landing Page</h1>
+        <h1>Main Page</h1>
         <button onClick={redirectLogin}>Login</button>
         <button onClick={redirectRegister}>Register</button>
       </div>
