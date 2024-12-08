@@ -38,12 +38,17 @@ const registerUserController = async (req, res) => {
       }
 
     const { email, password } = req.body;
-
     const users = await getAllUsers();
+
     const emailExists = users.find(user => user.email === email);
-      if (emailExists) {
-        return res.status(400).json({ message: 'Email already exists' });
-      }
+    const emailFormat = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    
+    if (emailExists) {
+      return res.status(400).json({ message: 'Email already exists' });
+    }
+    else if(!emailFormat.test(email)) {
+      return res.status(400).json({ message: 'Invalid email format' });
+    }
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
@@ -61,5 +66,32 @@ const registerUserController = async (req, res) => {
   }
 };
 
+const loginUserController = async (req, res) => {
+  try {
+    console.log('Incoming request body:', req.body);
 
-module.exports = { registerUserController, getAllUsersController };
+    const { email, password } = req.body;
+
+    const users = await getAllUsers();
+    const user = users.find(user => user.email === email);
+      if (!user) {
+        return res.status(404).json({ message: 'User not found' });
+      }
+    
+    const passwordMatch = await bcrypt.compare(password, user.password);
+      if (!passwordMatch) {
+        return res.status(401).json({ message: 'Invalid credentials' });
+      }
+
+    return res.status(200).json({ message: 'Login successful' });
+
+  } catch (err) {
+    console.error('Error logging in:', err);
+    return res.status(500).json({ message: 'Failed to log in' });
+  }
+}
+
+
+module.exports = {registerUserController,
+                  loginUserController,
+                  getAllUsersController };

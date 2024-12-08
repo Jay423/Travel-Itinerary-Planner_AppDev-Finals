@@ -22,11 +22,12 @@ function App() {
     }
 
     try {
-      const response = await axios.post('http://localhost:5001/routes/register', data);
+      const response = await axios.post('http://localhost:5001/routes/login', data);
 
-      if (response.status === 201) {
+      if (response.status === 200) {
         setData({ email: '', password: '' }); 
-        setSuccess(response.data.message || 'Registration successful!');
+        setSuccess(response.data.message || 'Login successful!');
+        window.location.href = '/plan';
       }
       
     } catch (err) {
@@ -34,6 +35,7 @@ function App() {
       setSuccess('');
     }
   };
+
 
   return (
     <div className="register_container">
