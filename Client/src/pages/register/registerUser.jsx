@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import axios from 'axios';
+import '/src/pages/login/login.css';
+import logo from '../../assets/logo.png';
 
 function App() {
   const [data, setData] = useState({ email: '', password: '' });
@@ -36,11 +38,12 @@ function App() {
   };
 
   return (
-    <div className="register_container">
-      <h1>Register</h1>
+    <div className="login-page">
+      
       <form onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label>Email:</label>
+        <div className="form">
+        <h1>Register</h1>
+        
           <input
             type="email"
             name="email"
@@ -49,9 +52,7 @@ function App() {
             onChange={handleInputChange}
             required
           />
-        </div>
-        <div className="form-group">
-          <label>Password:</label>
+    
           <input
             type="password"
             name="password"
@@ -60,15 +61,22 @@ function App() {
             onChange={handleInputChange}
             required
           />
-        </div>
+        
         {error && <p className="error-message">{error}</p>}
         {success && <p className="success-message">{success}</p>}
         <button type="submit">Register</button>
 
-        <p>
+        <p className="message">
           Already have an account? <a href="/login">Login here</a>
         </p>
+        </div>
+        
       </form>
+      <div className='logoimg'>
+          <img src= {logo}></img>
+
+        </div>
+    
     </div>
   );
 }
