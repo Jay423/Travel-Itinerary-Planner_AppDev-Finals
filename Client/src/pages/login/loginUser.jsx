@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import axios from 'axios';
-import './login.css';
-import logo from '../../assets/logo.png';
+import './loginpage.css';
+import logo from '../../assets/logoFinal.png';
 
 function App() {
-  const [formType, setFormType] = useState('login'); // State to toggle between login and register forms
+  const [formType, setFormType] = useState('login'); 
   const [data, setData] = useState({ email: '', password: '' });
   const [registerData, setRegisterData] = useState({ name: '', email: '', password: '' });
   const [error, setError] = useState('');
@@ -60,6 +60,7 @@ function App() {
   };
 
   return (
+    <div className="loginback">
     <div className="login-page">
       <div className="form">
                 <form onSubmit={handleSubmit}>
@@ -131,12 +132,12 @@ function App() {
             </>
           )}
         </form>
-      
-      </div>
-      <div className='logoimg'>
+        </div>
+        </div>
+      {/* <div className='logoimg'>
           <img src= {logo}></img>
 
-        </div>
+        </div> */}
     </div>
   );
 }

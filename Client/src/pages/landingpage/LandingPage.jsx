@@ -15,7 +15,7 @@ const LandingPage = () => {
                 <button><a href='/'>Download the app</a></button>
             </section>
 
-            <div className="logo"><img src="/VISTALOGO.png" alt="Logo" /></div>
+            <div className="logoland"><img src="/VISTALOGO.png" alt="Logoland" /></div>
 
             <h1>Turn your <br /> travel dreams <br /> into reality</h1>
             <section className="startbutton">
@@ -33,7 +33,7 @@ const LandingPage = () => {
         <p>Plan trips<br /> with Vista</p>
       </section>
       <section className="Welcome">
-      Est. 2024
+      <p>Est. 2024</p>
       <br />
       <br />
       <br />

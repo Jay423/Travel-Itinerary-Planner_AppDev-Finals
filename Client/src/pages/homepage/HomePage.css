@@ -1,21 +1,37 @@
+h2{
+  color: white;
+}
+
 .home-page {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
 }
 
+h4 {
+  color: black;
+}
+
+.navbar p{
+
+color: white;
+}
 .navbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    width: 100%;
     background-color: #10221F; /* Match the dark background color */
     color: #fff;
-    padding: 10px 20px;
-  }
+    padding: 15px;
+    margin-top: -10px;
+    margin-left: -10px;
+ }
 
   .logo {
     height: 120px;
-    margin-left: 90px;
+    margin-left: -1110px;
+    margin-top: -3px;
   }
   
   .navbar-left {
@@ -25,14 +41,15 @@
 
   .navbar-links {
     list-style: none;
-    margin: 0;
-    padding: 0;
+    padding-right: 100px;
     display: flex;
     font-size: 12px;
+    margin-left: 250px;
+    padding: 0;
   }
   
   .navbar-links li {
-    margin-right: 40px;
+    margin-right: 50px;
   }
   
   .navbar-links a {
@@ -43,14 +60,16 @@
   .navbar-right {
     display:block;
     align-items: center;
-    font-weight: bold;
+    font-weight: lighter;
   }
 
   .wcb {
+    color: white;
     position: relative;
     top: 25px;
     right: 300px;
     line-height: 10px;
+    
   }
 
   .navbar-right a {
@@ -92,11 +111,16 @@
     font-size: 12px;
   }
 
+  a {
+    color: white;
+    text-decoration: none;
+  }
+
   .googlemap{
     width: 800px;
     height: 250px;
     margin-top: 70px;
-    margin-left: 450px;
+    margin-left: 550px;
     
     border-radius: 10px;
   }
@@ -104,8 +128,8 @@
   .MAP button {
     list-style: none;
     position: absolute;
-    top: 423px;
-    right: 750px;
+    top: 425px;
+    right: 875px;
     padding: 20px;
     background-color: #10221F;
     border-radius:10px;
@@ -140,6 +164,7 @@
   .date {
     font-weight: 200;
     font-size: 12px;
+    color: black;
   }
   
   .trip-card img {
@@ -168,7 +193,7 @@
     font-size: 14px;
     position: relative;
     bottom: 10px;
-    color: black;
+    color: white;
   }
   
   .destination-card img {

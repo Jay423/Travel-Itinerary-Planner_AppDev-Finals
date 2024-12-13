@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import axios from 'axios';
-import '/src/pages/login/login.css';
-import logo from '../../assets/logo.png';
+import '/src/pages/login/loginpage.css';
+// import logo from '../../assets/logoFinal.png';
 
 function App() {
   const [data, setData] = useState({ email: '', password: '' });
@@ -38,11 +38,12 @@ function App() {
   };
 
   return (
+    <div className="loginback">
     <div className="login-page">
-      
-      <form onSubmit={handleSubmit}>
-        <div className="form">
-        <h1>Register</h1>
+       <div className="form">
+          <form onSubmit={handleSubmit}>
+         
+          <h1>Register</h1>
         
           <input
             type="email"
@@ -62,19 +63,16 @@ function App() {
             required
           />
         
-        {error && <p className="error-message">{error}</p>}
-        {success && <p className="success-message">{success}</p>}
-        <button type="submit">Register</button>
+          {error && <p className="error-message">{error}</p>}
+          {success && <p className="success-message">{success}</p>}
+          <button type="submit">Register</button>
 
-        <p className="message">
-          Already have an account? <a href="/login">Login here</a>
-        </p>
+          <p className="message">
+            Already have an account? <a href="/login">Login here</a>
+          </p>
+            
+          </form>
         </div>
-        
-      </form>
-      <div className='logoimg'>
-          <img src= {logo}></img>
-
         </div>
     
     </div>

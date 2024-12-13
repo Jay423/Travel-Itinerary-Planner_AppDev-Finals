@@ -17,7 +17,7 @@ const HomePage = () => {
       <div className="navbar-right">
         <span className='wcb'><p>Welcome back,</p>
         <div className='username'><p>Hanni Pham</p></div></span>
-        <a href='/'>Log out</a>
+        <a href='/login'>Log out</a>
         <button className="notification-button">
             <img src='/bell.png' className='bell' alt='bell'></img>
           <i className="fa fa-bell"></i>
