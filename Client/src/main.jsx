@@ -6,6 +6,7 @@ import Home from './pages/homepage/HomePage';
 import Login from './pages/login/loginUser';
 import Register from './pages/register/registerUser'; 
 import LandingPage from './pages/landingpage/LandingPage';
+import TripPlanner from './pages/tripplanner/TripPlanner';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
@@ -17,6 +18,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         <Route path="/home" element={<Home />} />
         <Route path="/calendar" element={<Calendar />} />
         <Route path="/landing" element={<LandingPage/>} />
+        <Route path="/tripplanner" element={<TripPlanner />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>
