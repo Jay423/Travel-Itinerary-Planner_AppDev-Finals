@@ -1,17 +1,23 @@
 import React from 'react';
-import ReactDOM from 'react-dom/client';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import appRoutes from './routes/appRoutes';  // Import the routes from appRoutes.js
-import './index.css';
+import ReactDOM from 'react-dom/client';
+import Calendar from './pages/calendarapp/calendar';
+import Home from './pages/homepage/HomePage';
+import Login from './pages/login/loginUser';
+import Register from './pages/register/registerUser'; 
+import LandingPage from './pages/landingpage/LandingPage';
 
-const App = () => (
-  <BrowserRouter>
-    <Routes>
-      {appRoutes.map(({ path, component: Component }) => (
-        <Route key={path} path={path} element={<Component />} />
-      ))}
-    </Routes>
-  </BrowserRouter>
+ReactDOM.createRoot(document.getElementById('root')).render(
+  <React.StrictMode>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<LandingPage />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/home" element={<Home />} />
+        <Route path="/calendar" element={<Calendar />} />
+        <Route path="/landing" element={<LandingPage/>} />
+      </Routes>
+    </BrowserRouter>
+  </React.StrictMode>
 );
-
-ReactDOM.createRoot(document.getElementById('root')).render(<App />);
