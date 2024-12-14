@@ -94,6 +94,7 @@
     position: absolute; 
     bottom: 300px; 
     left: 200px; 
+    top: 500px;
     margin: 0;
     z-index: 10;
   }

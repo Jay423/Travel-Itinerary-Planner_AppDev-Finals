@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './calendar.css';
 
 const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
@@ -53,6 +54,19 @@ function TripCard({ date, title, location, createdBy }) {
 function Calendar() {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [isYearView, setIsYearView] = useState(false);
+  const [tripData, setTripData] = useState(null);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const storedTripData = localStorage.getItem('tripData');
+    if (storedTripData) {
+      setTripData(JSON.parse(storedTripData));
+    }
+  }, []);
+
+  const handleCreateTrip = () => {
+    navigate('/tripplanner');
+  };
 
   const handlePrevMonth = () => {
     setCurrentDate(new Date(currentDate.getFullYear(), currentDate.getMonth() - 1, 1));
@@ -225,16 +239,15 @@ function Calendar() {
         </div>
         <div className="upcoming-trips">
           <h2>UPCOMING TRIPS</h2>
-          {upcomingTrips.map((trip, index) => (
+          {tripData && (
             <TripCard 
-              key={index} 
-              date={trip.date} 
-              title={trip.title} 
-              location={trip.location} 
-              createdBy={trip.createdBy} 
+              date={`${tripData.departureDate} - ${tripData.arrivalDate}`} 
+              title={tripData.title} 
+              location={`${tripData.destinationCity}, ${tripData.destinationCountry}`} 
+              createdBy={{ name: 'Hanni Pham', profileImage: '/path/to/profile-image.jpg' }} 
             />
-          ))}
-          <button className="create-trip-button">+ Create Trip</button> 
+          )}
+          <button className="create-trip-button" onClick={handleCreateTrip}>+ Create Trip</button> 
         </div>
       </div>
     </div>

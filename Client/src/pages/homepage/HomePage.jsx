@@ -56,7 +56,7 @@ const HomePage = () => {
               {user ? <p>{user.name}</p> : <p>Loading...</p>} {/* Display user name */}
             </div>
           </span>
-          <a href='/login' onClick={handleLogout}>Log out</a>
+          <a onClick={handleLogout}>Log out</a>
           <button className="notification-button">
             <img src='/bell.png' className='bell' alt='bell'></img>
             <i className="fa fa-bell"></i>
