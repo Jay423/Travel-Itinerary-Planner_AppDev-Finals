@@ -134,10 +134,10 @@ function App() {
         </form>
         </div>
         </div>
-      {/* <div className='logoimg'>
+      <div className='logoimg'>
           <img src= {logo}></img>
 
-        </div> */}
+        </div>
     </div>
   );
 }

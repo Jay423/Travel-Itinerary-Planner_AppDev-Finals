@@ -117,19 +117,23 @@ color: white;
   }
 
   .googlemap{
+    z-index: 10; 
+    margin: 0;
     width: 800px;
     height: 250px;
     margin-top: 70px;
-    margin-left: 550px;
+    margin-left: 525px;
     
     border-radius: 10px;
   }
 
   .MAP button {
+    z-index: 10; 
+    margin: 0;
     list-style: none;
     position: absolute;
     top: 425px;
-    right: 875px;
+    right: 907px;
     padding: 20px;
     background-color: #10221F;
     border-radius:10px;
@@ -156,7 +160,7 @@ color: white;
 
   .trip-card h4 {
     margin-bottom: 0px;
-    margin-top: 0px;
+    margin-top: 5px;
     font-weight: normal;
     font-size: 14px;
   }

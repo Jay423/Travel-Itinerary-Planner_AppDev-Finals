@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import axios from 'axios';
 import '/src/pages/login/loginpage.css';
-// import logo from '../../assets/logoFinal.png';
+import logo from '../../assets/logoFinal.png';
 
 function App() {
   const [data, setData] = useState({ email: '', password: '' });
@@ -74,7 +74,10 @@ function App() {
           </form>
         </div>
         </div>
+     <div className='logoimg'>
+              <img src= {logo}></img>
     
+            </div>
     </div>
   );
 }

@@ -112,12 +112,14 @@
 
 /*box divider of page*/
 .box{
-  width: 90%;
+  width: 89.5%;
   height: 100px;
   background-color: #d9d9d9;
   position: absolute;
-  top: 940.5px;
+  top: 950px;
   left: 96px;
+  z-index: 10; 
+  margin: 0;
 }
 
   
@@ -248,9 +250,11 @@
   }
 
   .Browse button{
+    z-index: 10; 
+    margin: 0;
     position: relative;
     bottom: 130px;
-    left: -20px;
+    left: -40px;
     background-color: black;
     color: white;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
@@ -258,6 +262,7 @@
     font-size: 12px;
     cursor: pointer;
     border-radius: 5px;
+    
     
   }
 

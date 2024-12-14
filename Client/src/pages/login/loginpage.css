@@ -11,6 +11,14 @@
   flex-direction: row;
 }
 
+.logoimg{
+  z-index: 10; 
+  margin: 0;
+  position: absolute;
+  top: 205px; 
+  left: 1200px; 
+}
+
 .loginback {
   background-color: #0b1917;
   height: 100vh; 
@@ -32,7 +40,7 @@
   background: #FFFFFF;
   max-width: 600px;
   margin: 0 auto 100px;
-  padding: 130px;
+  padding: 140px;
   text-align: center;
   box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
 }
