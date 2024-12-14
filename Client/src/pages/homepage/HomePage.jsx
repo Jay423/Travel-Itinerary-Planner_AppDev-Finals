@@ -29,7 +29,7 @@ const HomePage = () => {
 
     <section className='MAP'>
         <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5550.585863553436!2d123.91697337622409!3d10.353324797527732!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x33a99894d1b6ae25%3A0xc2d9b9e99316c59d!2sUniversity%20of%20San%20Carlos%20-%20Talamban%20Campus!5e0!3m2!1sen!2sph!4v1733960894276!5m2!1sen!2sph" className='googlemap' border="4px black"  allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-        <button><a href='/plantrip'>Plan a new trip +</a></button>
+        <button><a href='/calendar'>Plan a new trip +</a></button>
     </section>
 
     <section id="current-trips">

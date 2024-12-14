@@ -20,8 +20,8 @@ const LandingPage = () => {
             <h1>Turn your <br /> travel dreams <br /> into reality</h1>
             <section className="startbutton">
                 <div className="button-container">
-                    <button><a href='/'>Login</a></button>
-                    <button><a href='/'>Sign Up</a></button>
+                    <button><a href='/login'>Login</a></button>
+                    <button><a href='/register'>Sign Up</a></button>
                 </div>
             </section>
         </div>
