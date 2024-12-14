@@ -1,4 +1,6 @@
 const { registerUser, getAllUsers } = require('../model/userModel');
+require("dotenv").config();
+const jwt = require('jsonwebtoken');
 const Joi = require('joi');
 const bcrypt = require('bcrypt');
 
@@ -74,24 +76,44 @@ const loginUserController = async (req, res) => {
 
     const users = await getAllUsers();
     const user = users.find(user => user.email === email);
-      if (!user) {
-        return res.status(404).json({ message: 'User not found' });
-      }
-    
-    const passwordMatch = await bcrypt.compare(password, user.password);
-      if (!passwordMatch) {
-        return res.status(401).json({ message: 'Invalid credentials' });
-      }
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
 
-    return res.status(200).json({ message: 'Login successful' });
+    const passwordMatch = await bcrypt.compare(password, user.password);
+    if (!passwordMatch) {
+      return res.status(401).json({ message: 'Invalid credentials' });
+    }
+
+    const accessToken = jwt.sign({ email: user.email }, process.env.JWT_SECRET, { expiresIn: '1h' });
+    console.log('Generated token:', accessToken);
+
+    res.status(200).json({ token: accessToken, message: 'Login successful' });
 
   } catch (err) {
     console.error('Error logging in:', err);
     return res.status(500).json({ message: 'Failed to log in' });
   }
-}
+};
 
+const fetchUserProfile = async (req, res) => {
+  try {
+      if (!req.user || !req.user.email) {
+        console.error('req.user is undefined or missing email:', req.user);
+          return res.status(401).json({ error: 'Unauthorized' });
+      }
+      const users = await getAllUsers(); 
+      const userProfile = users.find(user => user.email === req.user.email);
+      if (!userProfile) {
+          return res.status(404).json({ error: 'User not found' });
+      }
+      res.json(userProfile); 
+  } catch (error) {
+      res.status(500).json({ error: error.message });
+  }
+};
 
 module.exports = {registerUserController,
                   loginUserController,
-                  getAllUsersController };
+                  getAllUsersController,
+                  fetchUserProfile };

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import axios from 'axios';
 import './loginpage.css';
-import logo from '../../assets/logoFinal.png';
+// import logo from '../../assets/logoFinal.png';
 
 function App() {
   const [data, setData] = useState({ email: '', password: '' });
@@ -28,6 +28,8 @@ function App() {
       if (response.status === 200) {
         setData({ email: '', password: '' });
         setSuccess(response.data.message || 'Login successful!');
+        const token = response.data.token;
+        localStorage.setItem('authToken', token);
         window.location.href = '/home';
       }
     } catch (err) {

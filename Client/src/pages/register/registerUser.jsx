@@ -24,7 +24,7 @@ function App() {
     }
 
     try {
-      const response = await axios.post('http://localhost:5001/routes/register', data);
+      const response = await axios.post('http://localhost:5001/routes/Register', data);
 
       if (response.status === 201) {
         setData({ email: '', password: '' }); 
