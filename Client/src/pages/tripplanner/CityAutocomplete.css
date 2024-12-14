@@ -1,0 +1,40 @@
+.city-autocomplete {
+    position: relative; /* Allows positioning the dropdown list */
+  }
+  
+  .city-autocomplete input {
+    width: 100%; /* Set input width */
+    padding: 10px; /* Add padding for aesthetics */
+    border: 1px solid #ccc; /* Add border */
+  }
+
+  
+  
+  .city-autocomplete .suggestions {
+    display: none; /* Initially hide the suggestions list */
+    position: absolute; /* Position the list below the input */
+    top: 100%; /* Offset from the bottom of the input */
+    left: 0; /* Align with the left side of the input */
+    width: 100%; /* Match the input width */
+    background-color: #fff; /* Set background color */
+    border: 1px solid #ccc; /* Add border */
+    list-style: none; /* Remove default list styling */
+    padding: 0; /* Remove default padding */
+    margin: 0; /* Remove default margin */
+    max-height: 200px; /* Adjust the maximum height as needed */
+    overflow-y: auto;
+  }
+  
+  .city-autocomplete .suggestions.active {
+    display: block; /* Show the suggestions list on focus or input */
+  }
+  
+  .city-autocomplete .suggestions li {
+    padding: 10px; /* Padding for each suggestion item */
+    cursor: pointer; /* Set cursor to pointer on hover */
+    border-bottom: 1px solid #ddd; /* Add border between suggestions */
+  }
+  
+  .city-autocomplete .suggestions li:hover {
+    background-color: #eee; /* Highlight hovered suggestion */
+  }
