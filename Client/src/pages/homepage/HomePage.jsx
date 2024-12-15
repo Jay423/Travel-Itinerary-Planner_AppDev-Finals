@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
+import axios from 'axios';
 import './HomePage.css';
-
 
 const HomePage = () => {
 
@@ -73,7 +73,7 @@ const HomePage = () => {
     <section id="current-trips">
   <h2>Current Trips</h2>
   <a href='/'>
-  <div class="trip-cardhome">
+  <div className="trip-cardhome">
     <img src="/skorea.png" alt="South Korea"></img>
     <h4>Visiting South Korea Temples</h4>
     <span className='date'>Dec 29 - Dec 31</span>
@@ -81,7 +81,7 @@ const HomePage = () => {
   </a>
   
   <a href='/'>
-  <div class="trip-cardhome">
+  <div className="trip-cardhome">
     <img src="/image.png" alt="Taking Friends to my Hometown"></img>
     <h4>Taking Friends to my Hometown</h4>
     <span className='date'>Jan 13 - Jan 20</span>
@@ -91,12 +91,12 @@ const HomePage = () => {
   <section id="discover">
   <h2>Discover</h2>
   <span className='destination'><p>Discover top destinations, curated based on popular choices by other travelers.</p></span>
-  <div class="destination-card">
+  <div className="destination-card">
     <img src="/Madrid.png" alt="Madrid"></img>
     <h4>Madrid</h4>
     <button>View</button>
   </div>
-  <div class="destination-card">
+  <div className="destination-card">
     <img src="/Kyoto.png" alt="Kyoto"></img>
     <h4>Kyoto</h4>
     <button>View</button>
