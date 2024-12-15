@@ -5,6 +5,7 @@ import './HomePage.css';
 const HomePage = () => {
     return (
         <div className="home-page">
+           
             <nav className="navbar">
       <div className="navbar-left">
         <img src="/VISTALOGO.png" className='logo' alt="Your Logo" />
@@ -15,6 +16,7 @@ const HomePage = () => {
           <li><a href="/download-the-app">Download the app</a></li>
         </ul>
       </div>
+      
       <div className="navbar-right">
         <span className='wcb'><p>Welcome back,</p>
         <div className='username'><p>Hanni Pham</p></div></span>
@@ -35,7 +37,7 @@ const HomePage = () => {
     <section id="current-trips">
   <h2>Current Trips</h2>
   <a href='/'>
-  <div class="trip-card">
+  <div class="trip-cardhome">
     <img src="/skorea.png" alt="South Korea"></img>
     <h4>Visiting South Korea Temples</h4>
     <span className='date'>Dec 29 - Dec 31</span>
@@ -43,7 +45,7 @@ const HomePage = () => {
   </a>
   
   <a href='/'>
-  <div class="trip-card">
+  <div class="trip-cardhome">
     <img src="/image.png" alt="Taking Friends to my Hometown"></img>
     <h4>Taking Friends to my Hometown</h4>
     <span className='date'>Jan 13 - Jan 20</span>

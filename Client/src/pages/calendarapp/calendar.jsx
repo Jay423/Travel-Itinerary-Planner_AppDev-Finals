@@ -38,7 +38,10 @@ function TripCard({ date, title, location, createdBy }) {
     <div className="trip-card">
       <div className="trip-header">
         <span>{date}</span>
-        <button className="edit-button">EDIT</button>
+  
+  <button className="edit">Edit</button>
+
+
       </div>
       <h3>{title}</h3>
       <p>{location}</p>
@@ -169,76 +172,80 @@ function Calendar() {
 
   return (
     <div className='calendarapp'>
-
-      <nav className="navbar">
-        <div className="navbar-left">
-          <img src="/VISTALOGO.png" className='logo' alt="Your Logo" />
-          <ul className="navbar-links">
-            <li><a href="/">Home</a></li>
-            <li><a href="/Itinerary">Itinerary</a></li>
-            <li><a href="/Discover">Discover</a></li>
-            <li><a href="/download-the-app">Download the app</a></li>
-          </ul>
-        </div>
-        <div className="navbar-right">
-          <span className='wcb'><p>Welcome back,</p>
-          <div className='username'><p>Hanni Pham</p></div></span>
-          <a href='/'>Log out</a>
-          <button className="notification-button">
-            <img src='/bell.png' className='bell' alt='bell'></img>
-            <i className="fa fa-bell"></i>
-            <span className="notification-count">10</span>
-          </button>
-        </div>
-      </nav>
-
-      <button onClick={toggleView}>{isYearView ? 'Month View' : 'Year View'}</button> 
-
-      <div className="container">
-        <div className="calendar">
-          <CalendarHeader 
-            isYearView={isYearView} 
-            currentDate={currentDate} 
-            handlePrevMonth={handlePrevMonth} 
-            handleNextMonth={handleNextMonth} 
-            handlePrevYear={handlePrevYear} 
-            handleNextYear={handleNextYear} 
-          />
-          {/* Remove the week-header in year view */}
-          {isYearView ? (
-            <div className="year-view-container"> 
-              {renderYearView()} 
-            </div>
-          ) : (
-            <>
-              <div className="week-header">
-                {daysOfWeek.map((day) => (
-                  <div key={day}>{day}</div>
-                ))}
-              </div>
-              <div className="days-grid">
-                {renderCalendar()} 
-              </div>
-            </>
-          )} 
-          
-        </div>
-        <div className="upcoming-trips">
-          <h2>UPCOMING TRIPS</h2>
-          {upcomingTrips.map((trip, index) => (
-            <TripCard 
-              key={index} 
-              date={trip.date} 
-              title={trip.title} 
-              location={trip.location} 
-              createdBy={trip.createdBy} 
-            />
-          ))}
-          <button className="create-trip-button">+ Create Trip</button> 
-        </div>
+    <nav className="navbar">
+      <div className="navbar-left">
+        <img src="/VISTALOGO.png" className='logo' alt="Your Logo" />
+        <ul className="navbar-links">
+          <li><a href="/">Home</a></li>
+          <li><a href="/Itinerary">Itinerary</a></li>
+          <li><a href="/Discover">Discover</a></li>
+          <li><a href="/download-the-app">Download the app</a></li>
+        </ul>
       </div>
-    </div>
-  );
+      
+      <div className="navbar-right">
+        <span className='wcb'>
+          <p>Welcome back,</p>
+          <div className='username'><p>Hanni Pham</p></div>
+        </span>
+        <a href='/'>Log out</a>
+        <button className="notification-button">
+          <img src='/bell.png' className='bell' alt='bell'></img>
+          <span className="notification-count">10</span>
+        </button>
+      </div>
+    </nav>
+
+    <div className="toggle-view-button" onClick={toggleView}>
+    {isYearView ? 'Month View' : 'Year View'}
+  </div>
+
+    {/* Updated container here */}
+    <div className={`container ${isYearView ? 'year-view-active' : 'month-view-active'}`}>
+  <div className="calendar">
+    <CalendarHeader 
+      isYearView={isYearView} 
+      currentDate={currentDate} 
+      handlePrevMonth={handlePrevMonth} 
+      handleNextMonth={handleNextMonth} 
+      handlePrevYear={handlePrevYear} 
+      handleNextYear={handleNextYear} 
+    />
+    {isYearView ? (
+      <div className="year-view-container"> 
+        {renderYearView()} 
+      </div>
+    ) : (
+      <>
+        <div className="week-header">
+          {daysOfWeek.map((day) => (
+            <div key={day}>{day}</div>
+          ))}
+        </div>
+        <div className="days-grid">
+          {renderCalendar()} 
+        </div>
+      </>
+    )} 
+  </div>
+  <div className="upcoming-trips">
+    <h2>UPCOMING TRIPS</h2>
+    {upcomingTrips.map((trip, index) => (
+      <TripCard 
+        key={index} 
+        date={trip.date} 
+        title={trip.title} 
+        location={trip.location} 
+        createdBy={trip.createdBy} 
+      />
+    ))}
+    <button className="create-trip-button">+ Create Trip</button> 
+  </div>
+</div>
+
+  </div>
+);
 }
+
 
 export default Calendar;

@@ -1,91 +1,101 @@
-.navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #10221F; /* Match the dark background color */
-    color: #fff;
-    padding: 10px 20px;
-  }
+.navbar p{
 
-  .logo {
-    height: 120px;
-    margin-left: 90px;
+  color: white;
   }
+  .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      background-color: #10221F; /* Match the dark background color */
+      color: #fff;
+      padding: 15px;
+      margin-top: -10px;
+      margin-left: -10px;
+   }
   
-  .navbar-left {
-    display: flex;
-    align-items: center;
-  }
-
-  .navbar-links {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    font-size: 12px;
-  }
-  
-  .navbar-links li {
-    margin-right: 40px;
-  }
-  
-  .navbar-links a {
-    color: #fff;
-    text-decoration: none;
-  }
-  
-  .navbar-right {
-    display:block;
-    align-items: center;
-    font-weight: bold;
-  }
-
-  .wcb {
-    position: relative;
-    top: 25px;
-    right: 300px;
-    line-height: 10px;
-  }
-
-  .navbar-right a {
-    color: #fff;
-    font-weight: lighter;
-    position: relative;
-    bottom: 40px;
-    right: 130px;
-    font-size: 14px;
+    .logo {
+      height: 120px;
+      margin-left: -1110px;
+      margin-top: -3px;
+    }
     
-  }
-
-  .username {
-    font-size: 12px;
-    font-weight: lighter;
-  }
+    .navbar-left {
+      display: flex;
+      align-items: center;
+    }
   
-  .notification-button {
-    background-color: transparent;
-    border: none;
-    color: #fff;
-    cursor: pointer;
-    position: relative;
-    bottom: 25px;
-    right: 70px;
-  }
-
-  .bell{
-    height: 30px;
-  }
+    .navbar-links {
+      list-style: none;
+      padding-right: 100px;
+      display: flex;
+      font-size: 12px;
+      margin-left: 250px;
+      padding: 0;
+    }
+    
+    .navbar-links li {
+      margin-right: 50px;
+    }
+    
+    .navbar-links a {
+      color: #fff;
+      text-decoration: none;
+    }
+    
+    .navbar-right {
+      display:block;
+      align-items: center;
+      font-weight: lighter;
+    }
   
-  .notification-count {
-    position: absolute;
-    top: -5px;
-    right: -5px;
-    background-color: red;
-    color: #fff;
-    border-radius: 50%;
-    padding: 5px;
-    font-size: 12px;
-  }
+    .wcb {
+      color: white;
+      position: relative;
+      top: 25px;
+      right: 300px;
+      line-height: 10px;
+      
+    }
+  
+    .navbar-right a {
+      color: #fff;
+      font-weight: lighter;
+      position: relative;
+      bottom: 40px;
+      right: 130px;
+      font-size: 14px;
+    }
+  
+    .username {
+      font-size: 12px;
+      font-weight: lighter;
+    }
+    
+    .notification-button {
+      background-color: transparent;
+      border: none;
+      color: #fff;
+      cursor: pointer;
+      position: relative;
+      bottom: 25px;
+      right: 70px;
+    }
+  
+    .bell{
+      height: 30px;
+    }
+    
+    .notification-count {
+      position: absolute;
+      top: -5px;
+      right: -5px;
+      background-color: red;
+      color: #fff;
+      border-radius: 50%;
+      padding: 5px;
+      font-size: 12px;
+    }
 
   a {
     text-decoration: none;
