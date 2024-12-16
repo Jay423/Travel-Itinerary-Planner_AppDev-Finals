@@ -261,11 +261,11 @@ function Calendar() {
           <h2>UPCOMING TRIPS</h2>
           {upcomingTrips.map((trip, index) => (
             <TripCard 
-              key={index} 
-              date={trip.date} 
-              title={trip.title} 
-              location={trip.location} 
-              createdBy={trip.createdBy} 
+            key={index} 
+            date={`${trip.departureDate} - ${trip.arrivalDate}`} 
+            title={trip.title} 
+            location={`${trip.destinationCity}, ${trip.destinationCountry}`} 
+            createdBy={trip.createdBy} 
             />
           ))}
           <button className="create-trip-button" onClick={handleCreateTrip}>+ Create Trip</button> 
