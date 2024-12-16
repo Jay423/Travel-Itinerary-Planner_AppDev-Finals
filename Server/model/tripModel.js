@@ -80,7 +80,7 @@ const Trip = sequelize.define('Trip', {
     allowNull: true,
   },
 }, {
-  tableName: 'Destination', // Changed table name
+  tableName: 'Destination', 
   timestamps: true,
 });
 

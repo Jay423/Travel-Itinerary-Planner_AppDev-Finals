@@ -10,6 +10,7 @@ router.post('/login', rateLimiter, userController.loginUserController);
 router.post('/register', rateLimiter, userController.registerUserController);
 router.get('/home', rateLimiter, authToken, loggingMiddleware, userController.fetchUserProfile);
 router.get('/calendar', rateLimiter, authToken, tripController.fetchTrips);
+router.get('/trip', rateLimiter, authToken, tripController.fetchTrips);
 router.post('/trip', rateLimiter, authToken, tripController.createTripController); 
 router.get('/users', userController.getAllUsersController);
 

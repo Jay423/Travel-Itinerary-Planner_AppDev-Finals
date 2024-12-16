@@ -10,7 +10,7 @@ const DestinationActivity = sequelize.define('DestinationActivity', {
   tripModel_id: {
     type: DataTypes.INTEGER,
     references: {
-      model: 'Destination', // Updated table name
+      model: 'Destination',
       key: 'id',
     },
     allowNull: false,

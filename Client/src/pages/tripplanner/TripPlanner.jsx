@@ -4,6 +4,8 @@ import './TripPlanner.css'; // Import the CSS file
 import CityCountryAutocomplete from './CityAutocomplete';
 
 function TripPlanner() {
+  const [trips, setTrips] = useState([]);
+  const [error, setError] = useState('');
   const [tripData, setTripData] = useState({
     from: '',
     to: '',
@@ -17,6 +19,31 @@ function TripPlanner() {
     activities: [],
     notes: '',
   });
+
+  useEffect(() => {
+    const fetchTrips = async () => {
+      const token = localStorage.getItem('authToken');
+      if (!token) {
+        setError('No auth token found. Please log in.');
+        window.location.href = '/login';
+        return;
+      }
+
+      try {
+        const response = await axios.get('http://localhost:5001/routes/trip', {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
+        setTrips(response.data);
+      } catch (err) {
+        setError(err.response?.data?.message || 'Error fetching events.');
+        window.location.href = '/login';
+      }
+    };
+
+    fetchTrips();
+  }, []);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
