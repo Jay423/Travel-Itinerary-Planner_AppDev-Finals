@@ -439,7 +439,7 @@ function CountryAutocomplete({ onCountrySelect }) {
   );
 }
 
-function CityAutocomplete() {
+function CityAutocomplete({ onCountrySelect, onCitySelect }) {
   const [selectedCountry, setSelectedCountry] = useState('');
   const [inputValue, setInputValue] = useState('');
   const [filteredCities, setFilteredCities] = useState([]);
@@ -448,6 +448,7 @@ function CityAutocomplete() {
     setSelectedCountry(country);
     setInputValue('');
     setFilteredCities([]);
+    onCountrySelect(country); // Notify parent component
   };
 
   const handleInputChange = (event) => {
@@ -467,6 +468,7 @@ function CityAutocomplete() {
   const handleCitySelection = (city) => {
     setInputValue(city);
     setFilteredCities([]);
+    onCitySelect(city); // Notify parent component
   };
 
   return (

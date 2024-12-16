@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import './TripPlanner.css'; // Import the CSS file
-import CityCountryAutocomplete from './CityAutocomplete'
+import CityCountryAutocomplete from './CityAutocomplete';
 
 function TripPlanner() {
   const [tripData, setTripData] = useState({
@@ -20,6 +21,7 @@ function TripPlanner() {
   const handleChange = (event) => {
     const { name, value } = event.target;
     setTripData({ ...tripData, [name]: value });
+    console.log(`Updated ${name}: ${value}`); // Debug log
   };
 
   const handleActivityChange = (index, event) => {
@@ -27,6 +29,7 @@ function TripPlanner() {
     const newActivities = [...tripData.activities];
     newActivities[index][name] = value;
     setTripData({ ...tripData, activities: newActivities });
+    console.log(`Updated activity ${index} ${name}: ${value}`); // Debug log
   };
 
   const addActivity = () => {
@@ -36,10 +39,54 @@ function TripPlanner() {
     });
   };
 
-  const handleSubmit = (event) => {
+  const handleCountrySelect = (country) => {
+    setTripData({ ...tripData, destinationCountry: country });
+    console.log(`Selected country: ${country}`); // Debug log
+  };
+
+  const handleCitySelect = (city) => {
+    setTripData({ ...tripData, destinationCity: city });
+    console.log(`Selected city: ${city}`); // Debug log
+  };
+
+  useEffect(() => {
+    if (tripData.departureDate) {
+      const date = new Date(tripData.departureDate);
+      const month = date.toLocaleString('default', { month: 'long' });
+      const day = date.getDate();
+      const fromValue = `${month} ${day}`;
+      console.log(`Setting from: ${fromValue}`); // Debug log
+      setTripData((prevData) => ({ ...prevData, from: fromValue }));
+    }
+  }, [tripData.departureDate]);
+
+  useEffect(() => {
+    if (tripData.arrivalDate) {
+      const date = new Date(tripData.arrivalDate);
+      const month = date.toLocaleString('default', { month: 'long' });
+      const day = date.getDate();
+      const toValue = `${month} ${day}`;
+      console.log(`Setting to: ${toValue}`); // Debug log
+      setTripData((prevData) => ({ ...prevData, to: toValue }));
+    }
+  }, [tripData.arrivalDate]);
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    // Handle form submission logic here (e.g., send data to server)
-    console.log(tripData); // Log the trip data to the console
+    console.log('Submitting trip data:', tripData); // Debug log
+    try {
+      const token = localStorage.getItem('authToken');
+      console.log('Token:', token); // Debug log
+      const response = await axios.post('http://localhost:5001/routes/trip', tripData, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+      console.log('Trip created:', response.data);
+
+    } catch (error) {
+      console.error('Error creating trip:', error);
+    }
   };
 
   return (
@@ -73,11 +120,13 @@ function TripPlanner() {
         <div className="date-boxes">
           <div className="date-box">
             <label>From</label>
+            <input type="text" name="from" value={tripData.from} onChange={handleChange} placeholder="From" />
             <input type="date" name="departureDate" value={tripData.departureDate} onChange={handleChange} />
             <input type="time" name="departureTime" value={tripData.departureTime} onChange={handleChange} />
           </div>
           <div className="date-box">
             <label>To</label>
+            <input type="text" name="to" value={tripData.to} onChange={handleChange} placeholder="To" />
             <input type="date" name="arrivalDate" value={tripData.arrivalDate} onChange={handleChange} />
             <input type="time" name="arrivalTime" value={tripData.arrivalTime} onChange={handleChange} />
           </div>
@@ -86,7 +135,7 @@ function TripPlanner() {
         <input type="text" name="title" placeholder="Title" value={tripData.title} onChange={handleChange} className='titlebox'/>
 
         <div className="destination-boxes">
-        <CityCountryAutocomplete />
+        <CityCountryAutocomplete onCountrySelect={handleCountrySelect} onCitySelect={handleCitySelect} />
         
         </div>
 

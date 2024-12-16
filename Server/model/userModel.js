@@ -33,20 +33,31 @@ const getAllUsers = async () => {
 };
 
 const registerUser = async (data) => {
-    try{
+    try {
+        const hashedPassword = await bcrypt.hash(data.password, 10);
         const newUser = await User.create({
             email: data.email,
-            password: data.password,
-        })
+            password: hashedPassword,
+        });
         return newUser;
     } catch (err) {
         console.error('Error adding user:', err);
         throw err;
     }
-}
+};
+
+const findUserByEmail = async (email) => {
+  try {
+    const user = await User.findOne({ where: { email } });
+    return user;
+  } catch (err) {
+    console.error('Error finding user by email:', err);
+    throw err;
+  }
+};
 
 sequelize.sync()
   .then(() => console.log('User table has been synchronized'))
   .catch(err => console.error('Error syncing the User table:', err));
 
-module.exports = { registerUser, getAllUsers };
+module.exports = { registerUser, getAllUsers, findUserByEmail };
