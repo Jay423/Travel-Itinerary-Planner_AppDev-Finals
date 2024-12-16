@@ -1,5 +1,6 @@
 const { Sequelize, DataTypes } = require('sequelize');
 const sequelize = require('../config/databasepg');
+const { createDestinationActivities } = require('./destinationActivityModel'); // Added import
 
 const Trip = sequelize.define('Trip', {
   id: {
@@ -10,38 +11,65 @@ const Trip = sequelize.define('Trip', {
   from: {
     type: DataTypes.STRING,
     allowNull: false,
+    validate: {
+      notEmpty: true,
+    },
   },
   to: {
     type: DataTypes.STRING,
     allowNull: false,
+    validate: {
+      notEmpty: true,
+    },
   },
   departureDate: {
     type: DataTypes.DATE,
     allowNull: false,
+    validate: {
+      isDate: true,
+    },
   },
   departureTime: {
     type: DataTypes.STRING,
     allowNull: false,
+    validate: {
+      notEmpty: true,
+    },
   },
   arrivalDate: {
     type: DataTypes.DATE,
     allowNull: false,
+    validate: {
+      isDate: true,
+    },
   },
   arrivalTime: {
     type: DataTypes.STRING,
     allowNull: false,
+    validate: {
+      notEmpty: true,
+    },
   },
   title: {
     type: DataTypes.STRING,
     allowNull: false,
+    validate: {
+      notEmpty: true,
+    },
   },
   destinationCountry: {
     type: DataTypes.STRING,
     allowNull: false,
+    validate: {
+      notEmpty: true,
+    },
   },
   destinationCity: {
     type: DataTypes.STRING,
     allowNull: false,
+    validate: {
+      notEmpty: true,
+    },
   },
   activities: {
     type: DataTypes.ARRAY(DataTypes.STRING),
@@ -51,16 +79,12 @@ const Trip = sequelize.define('Trip', {
     type: DataTypes.TEXT,
     allowNull: true,
   },
-  createdBy: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-  },
 }, {
-  tableName: 'trips',
+  tableName: 'Destination', // Changed table name
   timestamps: true,
 });
 
-const createTrip = async (tripData, userId) => {
+const createTrip = async (tripData) => {
   try {
     const newTrip = await Trip.create({
       from: tripData.from,
@@ -74,8 +98,10 @@ const createTrip = async (tripData, userId) => {
       destinationCity: tripData.destinationCity,
       activities: tripData.activities,
       notes: tripData.notes,
-      createdBy: userId,
     });
+
+    await createDestinationActivities(newTrip.id);
+
     return newTrip;
   } catch (err) {
     console.error('Error creating trip:', err);
@@ -94,7 +120,7 @@ const getTrips = async () => {
 };
 
 sequelize.sync()
-  .then(() => console.log('Trip table has been synchronized'))
-  .catch(err => console.error('Error syncing the Trip table:', err));
+  .then(() => console.log('Destination table has been synchronized'))
+  .catch(err => console.error('Error syncing the Destination table:', err));
 
-module.exports = { createTrip, getTrips };
+module.exports = { Trip, createTrip, getTrips };

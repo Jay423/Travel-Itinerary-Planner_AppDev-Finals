@@ -6,6 +6,10 @@ const createTripController = async (req, res) => {
     const userId = req.user.id; 
     console.log('Authenticated user ID:', userId); 
 
+    if (!from || !to || !departureDate || !departureTime || !arrivalDate || !arrivalTime || !title || !destinationCountry || !destinationCity) {
+      return res.status(400).json({ message: 'All required fields must be provided.' });
+    }
+
     const tripData = {
       from,
       to,
@@ -18,11 +22,10 @@ const createTripController = async (req, res) => {
       destinationCity,
       activities,
       notes,
-      createdBy: userId
     };
     console.log('Trip data:', tripData);
 
-    const newTrip = await createTrip(tripData, userId);
+    const newTrip = await createTrip(tripData);
     res.status(201).json({ trip: newTrip, message: 'Trip created successfully' });
   } catch (err) {
     console.error('Error creating trip:', err);
