@@ -67,16 +67,16 @@ function TripPlanner() {
     </nav>
 
 
-      <div class="container">
-      <div class="trip-planner">
+      <div className="container">
+      <div className="trip-planner">
       <form onSubmit={handleSubmit}>
         <div className="date-boxes">
-          <div class="date-box">
+          <div className="date-box">
             <label>From</label>
             <input type="date" name="departureDate" value={tripData.departureDate} onChange={handleChange} />
             <input type="time" name="departureTime" value={tripData.departureTime} onChange={handleChange} />
           </div>
-          <div class="date-box">
+          <div className="date-box">
             <label>To</label>
             <input type="date" name="arrivalDate" value={tripData.arrivalDate} onChange={handleChange} />
             <input type="time" name="arrivalTime" value={tripData.arrivalTime} onChange={handleChange} />

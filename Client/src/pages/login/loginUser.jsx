@@ -1,12 +1,16 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 import './loginpage.css';
-// import logo from '../../assets/logoFinal.png';
+import logo from '../../assets/logoFinal.png';
 
 function App() {
   const [data, setData] = useState({ email: '', password: '' });
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
+
+  useEffect(() => {
+    localStorage.removeItem('authToken');
+  }, []);
 
   const handleInputChange = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
@@ -71,9 +75,9 @@ function App() {
           </form>
         </div>
       </div>
-      {/* <div className='logoimg'>
+      <div className='logoimg'>
           <img src= {logo}></img>
-        </div> */}
+        </div>
     </div>
   );
 }

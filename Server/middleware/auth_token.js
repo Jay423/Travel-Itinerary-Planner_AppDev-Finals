@@ -7,8 +7,6 @@ const authToken = (req, res, next) => {
         return res.sendStatus(401); 
     }
 
-    console.log('Token received:', token);
-
     jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
         console.log('Verified User:', user);
         if (err) {

@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import './calendar.css';
 
 const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
@@ -38,10 +40,7 @@ function TripCard({ date, title, location, createdBy }) {
     <div className="trip-card">
       <div className="trip-header">
         <span>{date}</span>
-  
-  <button className="edit">Edit</button>
-
-
+        <button className="edit">Edit</button>
       </div>
       <h3>{title}</h3>
       <p>{location}</p>
@@ -56,6 +55,14 @@ function TripCard({ date, title, location, createdBy }) {
 function Calendar() {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [isYearView, setIsYearView] = useState(false);
+  const [events, setEvents] = useState([]);
+  const [error, setError] = useState('');
+
+  const navigate = useNavigate();
+
+  const handleCreateTrip = () => {
+    navigate('/trip');
+  };
 
   const handlePrevMonth = () => {
     setCurrentDate(new Date(currentDate.getFullYear(), currentDate.getMonth() - 1, 1));
@@ -169,83 +176,103 @@ function Calendar() {
     // Add more trip objects as needed
   ];
 
+  useEffect(() => {
+    const fetchEvents = async () => {
+      const token = localStorage.getItem('authToken');
+      if (!token) {
+        setError('No auth token found. Please log in.');
+        window.location.href = '/login';
+        return;
+      }
+
+      try {
+        const response = await axios.get('http://localhost:5001/routes/calendar', {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
+        setEvents(response.data);
+      } catch (err) {
+        setError(err.response?.data?.message || 'Error fetching events.');
+        window.location.href = '/login';
+      }
+    };
+
+    fetchEvents();
+  }, []);
 
   return (
     <div className='calendarapp'>
-    <nav className="navbar">
-      <div className="navbar-left">
-        <img src="/VISTALOGO.png" className='logo' alt="Your Logo" />
-        <ul className="navbar-links">
-          <li><a href="/">Home</a></li>
-          <li><a href="/Itinerary">Itinerary</a></li>
-          <li><a href="/Discover">Discover</a></li>
-          <li><a href="/download-the-app">Download the app</a></li>
-        </ul>
-      </div>
-      
-      <div className="navbar-right">
-        <span className='wcb'>
-          <p>Welcome back,</p>
-          <div className='username'><p>Hanni Pham</p></div>
-        </span>
-        <a href='/'>Log out</a>
-        <button className="notification-button">
-          <img src='/bell.png' className='bell' alt='bell'></img>
-          <span className="notification-count">10</span>
-        </button>
-      </div>
-    </nav>
+      <nav className="navbar">
+        <div className="navbar-left">
+          <img src="/VISTALOGO.png" className='logo' alt="Your Logo" />
+          <ul className="navbar-links">
+            <li><a href="/">Home</a></li>
+            <li><a href="/Itinerary">Itinerary</a></li>
+            <li><a href="/Discover">Discover</a></li>
+            <li><a href="/download-the-app">Download the app</a></li>
+          </ul>
+        </div>
+        <div className="navbar-right">
+          <span className='wcb'>
+            <p>Welcome back,</p>
+            <div className='username'><p>Hanni Pham</p></div>
+          </span>
+          <a href='/'>Log out</a>
+          <button className="notification-button">
+            <img src='/bell.png' className='bell' alt='bell'></img>
+            <span className="notification-count">10</span>
+          </button>
+        </div>
+      </nav>
 
-    <div className="toggle-view-button" onClick={toggleView}>
-    {isYearView ? 'Month View' : 'Year View'}
-  </div>
-
-    {/* Updated container here */}
-    <div className={`container ${isYearView ? 'year-view-active' : 'month-view-active'}`}>
-  <div className="calendar">
-    <CalendarHeader 
-      isYearView={isYearView} 
-      currentDate={currentDate} 
-      handlePrevMonth={handlePrevMonth} 
-      handleNextMonth={handleNextMonth} 
-      handlePrevYear={handlePrevYear} 
-      handleNextYear={handleNextYear} 
-    />
-    {isYearView ? (
-      <div className="year-view-container"> 
-        {renderYearView()} 
+      <div className="toggle-view-button" onClick={toggleView}>
+        {isYearView ? 'Month View' : 'Year View'}
       </div>
-    ) : (
-      <>
-        <div className="week-header">
-          {daysOfWeek.map((day) => (
-            <div key={day}>{day}</div>
+
+      <div className={`container ${isYearView ? 'year-view-active' : 'month-view-active'}`}>
+        <div className="calendar">
+          <CalendarHeader 
+            isYearView={isYearView} 
+            currentDate={currentDate} 
+            handlePrevMonth={handlePrevMonth} 
+            handleNextMonth={handleNextMonth} 
+            handlePrevYear={handlePrevYear} 
+            handleNextYear={handleNextYear} 
+          />
+          {isYearView ? (
+            <div className="year-view-container"> 
+              {renderYearView()} 
+            </div>
+          ) : (
+            <>
+              <div className="week-header">
+                {daysOfWeek.map((day) => (
+                  <div key={day}>{day}</div>
+                ))}
+              </div>
+              <div className="days-grid">
+                {renderCalendar()} 
+              </div>
+            </>
+          )} 
+        </div>
+        <div className="upcoming-trips">
+          <h2>UPCOMING TRIPS</h2>
+          {upcomingTrips.map((trip, index) => (
+            <TripCard 
+              key={index} 
+              date={trip.date} 
+              title={trip.title} 
+              location={trip.location} 
+              createdBy={trip.createdBy} 
+            />
           ))}
+          <button className="create-trip-button" onClick={handleCreateTrip}>+ Create Trip</button> 
         </div>
-        <div className="days-grid">
-          {renderCalendar()} 
-        </div>
-      </>
-    )} 
-  </div>
-  <div className="upcoming-trips">
-    <h2>UPCOMING TRIPS</h2>
-    {upcomingTrips.map((trip, index) => (
-      <TripCard 
-        key={index} 
-        date={trip.date} 
-        title={trip.title} 
-        location={trip.location} 
-        createdBy={trip.createdBy} 
-      />
-    ))}
-    <button className="create-trip-button">+ Create Trip</button> 
-  </div>
-</div>
-
-  </div>
-);
+      </div>
+    </div>
+  );
 }
-
 
 export default Calendar;

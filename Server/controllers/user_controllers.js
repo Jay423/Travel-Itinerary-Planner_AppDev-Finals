@@ -86,7 +86,6 @@ const loginUserController = async (req, res) => {
     }
 
     const accessToken = jwt.sign({ email: user.email }, process.env.JWT_SECRET, { expiresIn: '1h' });
-    console.log('Generated token:', accessToken);
 
     res.status(200).json({ token: accessToken, message: 'Login successful' });
 

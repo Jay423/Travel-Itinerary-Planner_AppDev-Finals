@@ -4,9 +4,8 @@ import axios from 'axios';
 import './HomePage.css';
 
 const HomePage = () => {
-
-  const [user, setUser] = useState(null); // To store the user data
-  const [error, setError] = useState(null); // For handling errors
+  const [user, setUser] = useState(null);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const getUserProfile = async () => {
@@ -14,25 +13,26 @@ const HomePage = () => {
         const token = localStorage.getItem('authToken');
 
         if (!token) {
+          setError('No auth token found. Please log in.');
           window.location.href = '/login';
           return;
         }
 
         const response = await axios.get('http://localhost:5001/routes/home', {
           headers: {
-            'Authorization': `Bearer ${token}` 
+            'Authorization': `Bearer ${token}`
           }
         });
 
-        setUser(response.data); 
+        setUser(response.data);
       } catch (error) {
         setError('Error fetching user profile.');
-        window.location.href = '/login'
+        window.location.href = '/login';
       }
     };
 
     getUserProfile();
-  }, []); 
+  }, []);
 
   const handleLogout = () => {
     localStorage.removeItem('authToken');
@@ -101,10 +101,7 @@ const HomePage = () => {
     <h4>Kyoto</h4>
     <button>View</button>
   </div>
-  </section>
-
-
-            
+  </section>     
             <section className='footer'>
                 <img src='/BotDisplay.png' alt='botdisp'></img>
             </section>
