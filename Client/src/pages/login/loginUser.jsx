@@ -1,10 +1,16 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
+import './loginpage.css';
+import logo from '../../assets/logoFinal.png';
 
 function App() {
   const [data, setData] = useState({ email: '', password: '' });
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
+
+  useEffect(() => {
+    localStorage.removeItem('authToken');
+  }, []);
 
   const handleInputChange = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
@@ -23,54 +29,55 @@ function App() {
 
     try {
       const response = await axios.post('http://localhost:5001/routes/login', data);
-
       if (response.status === 200) {
-        setData({ email: '', password: '' }); 
+        setData({ email: '', password: '' });
         setSuccess(response.data.message || 'Login successful!');
-        window.location.href = '/plan';
+        const token = response.data.token;
+        localStorage.setItem('authToken', token);
+        window.location.href = '/home';
       }
-      
     } catch (err) {
       setError(err.response?.data?.message || 'Error connecting to the server.');
-      setSuccess('');
     }
   };
 
-
   return (
-    <div className="register_container">
-      <h1>Login</h1>
-      <form onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label>Email:</label>
-          <input
-            type="email"
-            name="email"
-            placeholder="Enter your email"
-            value={data.email}
-            onChange={handleInputChange}
-            required
-          />
+    <div className="loginback">
+      <div className="login-page">
+        <div className="form">
+          <form onSubmit={handleSubmit}>
+            <h1>Login</h1>
+            <input
+              type="email"
+              name="email"
+              placeholder="Email"
+              value={data.email}
+              onChange={handleInputChange}
+              required
+            />
+            <input
+              type="password"
+              name="password"
+              placeholder="Password"
+              value={data.password}
+              onChange={handleInputChange}
+              required
+            />
+            {error && <p className="error-message">{error}</p>}
+            {success && <p className="success-message">{success}</p>}
+            <button type="submit">Login</button>
+            <p className="message">
+              Not registered?{' '}
+              <a href="/register">
+                Create an account
+              </a>
+            </p>
+          </form>
         </div>
-        <div className="form-group">
-          <label>Password:</label>
-          <input
-            type="password"
-            name="password"
-            placeholder="Enter your password"
-            value={data.password}
-            onChange={handleInputChange}
-            required
-          />
+      </div>
+      <div className='logoimg'>
+          <img src= {logo}></img>
         </div>
-        {error && <p className="error-message">{error}</p>}
-        {success && <p className="success-message">{success}</p>}
-        <button type="submit">Login</button>
-
-        <p>
-          Already have an account? <a href="/register">Register here</a>
-        </p>
-      </form>
     </div>
   );
 }

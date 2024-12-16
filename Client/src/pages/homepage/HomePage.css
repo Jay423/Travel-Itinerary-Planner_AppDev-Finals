@@ -1,0 +1,262 @@
+h2{
+  color: white;
+}
+
+.home-page {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+h4 {
+  color: black;
+}
+
+.navbar p{
+
+color: white;
+}
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    background-color: #10221F; /* Match the dark background color */
+    color: #fff;
+    padding: 15px;
+    margin-top: -10px;
+    margin-left: -10px;
+ }
+
+  .logo {
+    height: 120px;
+    margin-left: -1110px;
+    margin-top: -3px;
+  }
+  
+  .navbar-left {
+    display: flex;
+    align-items: center;
+  }
+
+  .navbar-links {
+    list-style: none;
+    padding-right: 100px;
+    display: flex;
+    font-size: 12px;
+    margin-left: 250px;
+    padding: 0;
+  }
+  
+  .navbar-links li {
+    margin-right: 50px;
+  }
+  
+  .navbar-links a {
+    color: #fff;
+    text-decoration: none;
+  }
+  
+  .navbar-right {
+    display:block;
+    align-items: center;
+    font-weight: lighter;
+  }
+
+  .wcb {
+    color: white;
+    position: relative;
+    top: 25px;
+    right: 300px;
+    line-height: 10px;
+    
+  }
+
+  .navbar-right a {
+    color: #fff;
+    font-weight: lighter;
+    position: relative;
+    bottom: 40px;
+    right: 130px;
+    font-size: 14px;
+  }
+
+  .username {
+    font-size: 12px;
+    font-weight: lighter;
+  }
+  
+  .notification-button {
+    background-color: transparent;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    position: relative;
+    bottom: 25px;
+    right: 70px;
+  }
+
+  .bell{
+    height: 30px;
+  }
+  
+  .notification-count {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background-color: red;
+    color: #fff;
+    border-radius: 50%;
+    padding: 5px;
+    font-size: 12px;
+  }
+
+  a {
+    color: white;
+    text-decoration: none;
+  }
+
+  .googlemap{
+    z-index: 10; 
+    margin: 0;
+    width: 800px;
+    height: 250px;
+    margin-top: 70px;
+    margin-left: 525px;
+    
+    border-radius: 10px;
+  }
+
+  .MAP button {
+    z-index: 10; 
+    margin: 0;
+    list-style: none;
+    position: absolute;
+    top: 425px;
+    right: 907px;
+    padding: 20px;
+    background-color: #10221F;
+    border-radius:10px;
+  }
+
+  .MAP a {
+    color: #fff;
+    text-decoration: none
+  }
+
+  #current-trips {
+    margin-top: 120px;
+    margin-left: 200px;
+  }
+
+  
+  .trip-cardhome {
+    display: inline-block;
+    margin-right: 10px;
+    padding: 10px;
+    width: 200px;
+    text-align:left;
+  }
+
+  .trip-cardhome h4 {
+    margin-bottom: 0px;
+    margin-top: 5px;
+    font-weight: normal;
+    font-size: 14px;
+  }
+
+  .date {
+    font-weight: 200;
+    font-size: 12px;
+    color: black;
+  }
+  
+  .trip-cardhome img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 10px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.7);
+  }
+  
+  /* Discover Section */
+  #discover {
+    margin-top: 70px;
+    margin-left: 200px;
+  }
+  
+  .destination-card {
+    display: inline-block;
+    margin-right: px;
+    padding: px;
+    width: 200px;
+    text-align: center;
+  }
+
+  .destination {
+    font-size: 14px;
+    position: relative;
+    bottom: 10px;
+    color: white;
+  }
+  
+  .destination-card img {
+    width: 170px;
+    height: 210px;
+    object-fit: cover;
+    background-color: black;
+    border-radius: 10px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.7);
+  }
+
+  .destination-card h4 {
+    position: relative;
+    bottom: 160px;
+    font-size: 30px;
+    color: white;
+    font-weight: lighter;
+  }
+  
+  .destination-card button {
+    display: block;
+    position: relative;
+    bottom: 170px;
+    left: 25px;
+    padding: 5px 10px;
+    background-color: transparent;
+    color: white;
+    border: 2px solid white;
+    border-radius: 7px;
+    cursor: pointer;
+    width: 150px;
+    height: 30px;
+  }
+
+.footer img {
+    position: absolute;
+    bottom: 10;
+    width: 100%;
+    height: auto;
+    right: 0px;
+  }
+
+   /*html to scroll*/
+ html {
+  scroll-behavior: smooth;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: beige;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #888;
+}
+  
+::-webkit-scrollbar-thumb:hover {
+  background-color: #555;
+}

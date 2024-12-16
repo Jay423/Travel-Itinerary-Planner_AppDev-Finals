@@ -1,0 +1,136 @@
+
+
+/* Layout */
+.container {
+  margin-top: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.trip-planner {
+  background-color: #f0f0f0;
+  padding: 30px;
+  border-radius: 10px;
+  width: 800px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+  text-align: center; /* Center all content inside trip-planner */
+  display: flex;
+  flex-direction: column; /* Make trip-planner a column */
+  align-items: center;
+}
+
+.sidebar {
+  width: 200px;
+  background-color: #f0f0f0;
+  padding: 20px;
+}
+
+.main-content {
+  flex: 1;
+  padding: 20px;
+}
+
+.titlebox {
+  width: 490px;
+  margin-left: 39px;
+  padding-left: 10px;
+}
+
+/* Typography */
+h2 {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+p {
+  margin-bottom: 10px;
+}
+
+/* Forms */
+input,
+textarea {
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+button {
+  background-color: #10221F;
+  width: 150px;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+.notes-container { 
+  display: flex; 
+  justify-content: center; 
+  margin-bottom: 10px; 
+}
+
+.date-boxes,
+.destination-boxes, 
+.activity-container {
+  display: flex;
+  justify-content: center; /* Center items horizontally within these containers */
+  margin-bottom: 10px; 
+}
+
+.date-boxes {
+  display: flex;
+  justify-content: space-around; /* Adjust spacing to space-around */
+  margin-bottom: 10px; 
+  margin-left: 100px;
+  margin-right: 100px;
+}
+
+/* Additional Styles */
+.activity-container {
+  display: flex;
+  flex-direction: column; /* Arrange activities vertically */
+  align-items: center; 
+}
+
+.activity {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 40px;
+
+  /* Add this to display time inputs side-by-side */
+  .time-inputs {
+    display: flex; 
+  }
+
+}
+
+
+
+.add-activity-button {
+  /* Style for the "Add Activity" button */
+  margin-top: 10px; /* Adjust margin as needed */
+  width: 50px;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: beige;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #888;
+}
+  
+::-webkit-scrollbar-thumb:hover {
+  background-color: #555;
+}

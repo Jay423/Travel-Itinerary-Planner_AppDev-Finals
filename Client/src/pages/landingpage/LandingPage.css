@@ -1,0 +1,298 @@
+/*!!!! beginning of page !!!!*/
+
+.landing-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  }
+  
+  h1 {
+    color: black;
+    padding-bottom: 60px;
+  }
+  
+  h2{
+    color: black;
+  }
+  
+  p {
+    color: black;
+  }
+
+  body {
+    overflow-x: hidden;
+    background-color: white;
+  }
+  
+  .button-container{
+    padding-bottom: 20px;
+  }
+
+  .hero {  /*background */
+    background-image: url('/public/HomepagePic.png');
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.7);
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    margin-top: -9px;
+    margin-left: -10px;
+
+    width: 101%;
+    height: 100vh;
+    background-color: black;
+    display: flex;
+    align-items: center;
+  }
+  
+  .hero-content h1 {
+    font-size: 6rem;
+    color: white;
+    font-weight: bold;
+    margin-left: 200px;
+    margin-bottom: 180px;
+  }
+  a {
+    text-decoration: none; 
+    color: white; 
+  }
+  .hero-content button {
+     
+    padding: 10px 25px;
+    font-size: 12px;
+    cursor: pointer;
+    margin: 10px; 
+  }
+  
+  .topbutton{
+    position:absolute;
+    left: 1100px;
+    top: 110px;
+    font-weight: lighter;
+  }
+  
+  .topbutton button{
+    background-color: transparent;
+    color: white;
+    border: 0px;
+  }
+  
+  .logoland {
+    position: absolute;
+    top: 20px; 
+    left: 90%; 
+    transform: translateX(-50%); 
+    z-index: 10; 
+  }
+  
+  .logo {
+    position: absolute;
+    left: 1200px;
+    top: 5px;
+  }
+  
+  .startbutton {
+    position: absolute; 
+    bottom: 300px; 
+    left: 200px; 
+    margin: 0;
+    z-index: 10;
+  }
+  .startbutton button {
+    background-color: transparent;
+    color: white;
+    border: 2px solid white;
+    border-radius: 10px;
+  }
+
+  
+  .PlanTrips, .Welcome, .planease, .Features, .Browse, .footer {
+    max-width: 1200px; /* Set a maximum width to prevent overflow */
+  margin: 0 auto;
+  }
+
+/*box divider of page*/
+.box{
+  width: 89.5%;
+  height: 100px;
+  background-color: #d9d9d9;
+  position: absolute;
+  top: 950px;
+  left: 96px;
+  z-index: 10; 
+  margin: 0;
+}
+
+  
+  .PlanTrips {
+  font-size: 95px;
+  font-style: light;
+  font-weight:lighter;
+  position: relative;
+  top: 120px;
+  right: 300px;
+}
+
+  .Welcome {
+    font-size: 13px;
+    font-weight: lighter;
+    position: relative;
+    bottom: 100px;
+    display: grid;
+    left: 250px;
+  }
+
+  .planease{
+    display: flex;
+  }
+
+  .planeaseimg img{
+    position: relative;
+    top: 70px;
+    height: 450px;
+    right: 70px;
+  }
+
+  .planeasetxt {
+    position: relative;
+    top: 160px;
+    left: 0px;
+  }
+
+  .Features h1{
+    text-align: center;
+    position: relative;
+    top: 200px;
+    font-size: 35px;
+  }
+
+  .create{
+    position: relative;
+    right: 300px;
+    top: 270px;
+    height: 123px;
+  }
+
+  .createtxt{
+    position: relative;
+    text-align: left;
+    right: 60px;
+    top: 115px;
+    font-size: 17px;
+    font-weight: lighter;
+    line-height: 26px;
+  }
+
+  .createtxt img{
+    position: relative;
+    bottom: 142px;
+    left: 87px;
+    height: 25px;
+  }
+
+  .Col{
+    position: relative;
+    left: 450px;
+    top: 120px;
+    height: 123px;
+  }
+
+
+  .coltxt {
+    position: relative;
+    text-align: left;
+    right: 60px;
+    bottom: 20px;
+    font-size: 17px;
+    font-weight: lighter;
+    line-height: 26px;
+  }
+  .coltxt h2{
+    position: relative;
+    left: 240px;
+  }
+  .coltxt img {
+    position: relative;
+    bottom: 142px;
+    left: 390px;
+    height: 25px;
+  }
+
+  .Comms {
+    position: relative;
+    right: 300px;
+    top: 10px;
+    height: 143px;
+  }
+
+  .commstxt {
+    position: relative;
+    text-align: left;
+    right: 135px;
+    bottom: 150px;
+    font-size: 17px;
+    font-weight: lighter;
+    line-height: 26px;
+  }
+
+  .commstxt img{
+    position: relative;
+    bottom: 142px;
+    left: 145px;
+    height: 25px;
+  }
+
+
+  .Browse img{
+    height: 800px;
+    position: relative;
+    top: 30px;
+    left: 50px;
+  }
+
+  .Browse button{
+    z-index: 10; 
+    margin: 0;
+    position: relative;
+    bottom: 130px;
+    left: -40px;
+    background-color: black;
+    color: white;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    padding: 10px 40px;
+    font-size: 12px;
+    cursor: pointer;
+    border-radius: 5px;
+    
+    
+  }
+
+  
+  .footer img{
+    margin-bottom: 20px;
+    position: absolute;
+    
+    width: 100%;
+    height: auto;
+    right: 0px;
+  }
+
+  /*html to scroll*/
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background-color: beige;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background-color: #888;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: #555;
+  }

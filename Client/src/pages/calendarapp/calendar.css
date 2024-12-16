@@ -1,0 +1,341 @@
+.home-page {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .navbar p{
+
+    color: white;
+    }
+    .navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        background-color: #10221F; /* Match the dark background color */
+        color: #fff;
+        padding: 15px;
+        margin-top: -10px;
+        margin-left: -10px;
+     }
+    
+      .logo {
+        height: 120px;
+        margin-left: -1110px;
+        margin-top: -3px;
+      }
+      
+      .navbar-left {
+        display: flex;
+        align-items: center;
+      }
+    
+      .navbar-links {
+        list-style: none;
+        padding-right: 100px;
+        display: flex;
+        font-size: 12px;
+        margin-left: 250px;
+        padding: 0;
+      }
+      
+      .navbar-links li {
+        margin-right: 50px;
+      }
+      
+      .navbar-links a {
+        color: #fff;
+        text-decoration: none;
+      }
+      
+      .navbar-right {
+        display:block;
+        align-items: center;
+        font-weight: lighter;
+      }
+    
+      .wcb {
+        color: white;
+        position: relative;
+        top: 25px;
+        right: 300px;
+        line-height: 10px;
+        
+      }
+    
+      .navbar-right a {
+        color: #fff;
+        font-weight: lighter;
+        position: relative;
+        bottom: 40px;
+        right: 130px;
+        font-size: 14px;
+      }
+    
+      .username {
+        font-size: 12px;
+        font-weight: lighter;
+      }
+      
+      .notification-button {
+        background-color: transparent;
+        border: none;
+        color: #fff;
+        cursor: pointer;
+        position: relative;
+        bottom: 25px;
+        right: 70px;
+      }
+    
+      .bell{
+        height: 30px;
+      }
+      
+      .notification-count {
+        position: absolute;
+        top: -5px;
+        right: -5px;
+        background-color: red;
+        color: #fff;
+        border-radius: 50%;
+        padding: 5px;
+        font-size: 12px;
+      }
+
+  a.calendartext {
+    color: white;
+    text-decoration: none;
+  }
+
+  .calendar-header button {
+    padding: 5px 10px;
+    border: none;
+    background-color: #1f3f3b; /* Existing background color */
+    color: white; /* Make the text color white */
+    border-radius: 3px;
+    cursor: pointer;
+  }
+  
+
+  .month-view-active {
+    display: flex; 
+    justify-content: space-between; 
+    width: 100%; 
+    max-width: 1000px;
+    margin-top: 100px; 
+  }
+  
+
+  .year-view-active {
+    display: flex; 
+    justify-content: space-between; 
+    width: 100%; 
+    max-width: 1520px;
+    margin: 0 auto;
+    z-index: 10; 
+  }
+  
+  .calendar {
+    width: 800px;
+    border: 1px solid #708978;
+    border-radius: 5px;
+    margin: 20px auto;
+    background-color: #122b27; 
+    flex: 2;
+    z-index: 10; 
+  }
+  
+  .calendar-header {
+    background-color: #0b1917;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between; /* Space between buttons and month */
+    align-items: center;
+    z-index: 10; 
+  }
+  
+  .calendar-header span {
+    margin: 0 10px; 
+    color: white;
+    z-index: 10; 
+  }
+  
+  .calendar-header button {
+    padding: 5px 10px;
+    border: none;
+    background-color: #1f3f3b;
+    border-radius: 3px;
+    cursor: pointer;
+    z-index: 10; 
+    
+  }
+  
+  .week-header {
+    display: flex;
+    color: white;
+    z-index: 10; 
+  }
+  
+  .week-header div {
+    flex-grow: 1;
+    text-align: center;
+    padding: 5px;
+    border-bottom: 1px solid #a4aaa6;
+    z-index: 10; 
+  }
+  
+  .days-grid {
+    display: grid;
+    color: white;
+    grid-template-columns: repeat(7, 1fr);
+    z-index: 10; 
+  }
+  
+  .day{
+    text-align: center;
+    padding: 5px;
+    border: 1px solid #a4aaa6; 
+    z-index: 10; 
+  }
+  
+  .empty-day {
+  text-align: center;
+  padding: 5px;
+  border: 1px solid #a4aaa6; /* Borders for empty days */
+  background-color: transparent; /* Optional for styling */
+  box-sizing: border-box;
+}
+  .prev-month-day,
+  .next-month-day {
+    color: #ccc;
+    color: white;
+    z-index: 10; 
+  }
+  
+  .year-view {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    
+    color: white;
+    z-index: 10; 
+  }
+  
+  .month-container {
+    border: 1px solid #ccc;
+    color: white;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    left: 60px;
+    z-index: 10; 
+  }
+
+  .month-container h2{
+
+    color: white;
+    padding: 5px;
+    display: flex;
+    font-weight: lighter;
+    z-index: 10; 
+  }
+  
+  .month-days {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    min-height: 150px;
+    font-size: 12px;
+    color: white;
+    z-index: 10; 
+  }
+
+
+  .upcoming-trips {
+    z-index: 10;
+    flex: 1; 
+  margin-left: 20px; 
+  background-color: #f0f0f0; 
+  padding: 20px; 
+  border-radius: 5px; 
+  z-index: 10; 
+  }
+  
+  .trip-card {
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 15px;
+    margin-bottom: 10px;
+    z-index: 10; 
+  }
+  
+  .trip-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    z-index: 10; 
+  }
+
+  
+  
+  .trip-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+    z-index: 10; 
+  }
+  
+  .profile-icon {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    margin-left: 5px;
+  }
+
+  .create-trip-button {
+    background-color: #0b1917; 
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px; 
+  }
+  
+   .toggle-view-button {
+    position: absolute;
+    justify-content: center; 
+    left: 35.5px;
+    padding: 10px 20px;
+    z-index: 10;
+    margin-top: 30px;
+    margin-right: 10px ;
+    background-color: #0b1917; 
+    color: white;
+    font-size: 13px;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: lighter;
+    
+  } 
+  
+  .edit {
+    color: #0b1917; 
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+   
+  .see-note-button {
+    background-color: #0b1917;
+    border: none;
+    border-radius: 3px;
+    padding: 5px 10px;
+    cursor: pointer;
+    color: white;
+  }

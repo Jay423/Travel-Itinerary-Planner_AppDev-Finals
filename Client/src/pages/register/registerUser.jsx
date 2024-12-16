@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import axios from 'axios';
+import '/src/pages/login/loginpage.css';
+import logo from '../../assets/logoFinal.png';
 
 function App() {
   const [data, setData] = useState({ email: '', password: '' });
@@ -36,11 +38,13 @@ function App() {
   };
 
   return (
-    <div className="register_container">
-      <h1>Register</h1>
-      <form onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label>Email:</label>
+    <div className="loginback">
+    <div className="login-page">
+       <div className="form">
+          <form onSubmit={handleSubmit}>
+         
+          <h1>Register</h1>
+        
           <input
             type="email"
             name="email"
@@ -49,9 +53,7 @@ function App() {
             onChange={handleInputChange}
             required
           />
-        </div>
-        <div className="form-group">
-          <label>Password:</label>
+    
           <input
             type="password"
             name="password"
@@ -60,15 +62,22 @@ function App() {
             onChange={handleInputChange}
             required
           />
-        </div>
-        {error && <p className="error-message">{error}</p>}
-        {success && <p className="success-message">{success}</p>}
-        <button type="submit">Register</button>
+        
+          {error && <p className="error-message">{error}</p>}
+          {success && <p className="success-message">{success}</p>}
+          <button type="submit">Register</button>
 
-        <p>
-          Already have an account? <a href="/login">Login here</a>
-        </p>
-      </form>
+          <p className="message">
+            Already have an account? <a href="/login">Login here</a>
+          </p>
+            
+          </form>
+        </div>
+        </div>
+     <div className='logoimg'>
+              <img src= {logo}></img>
+    
+            </div>
     </div>
   );
 }
