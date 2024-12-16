@@ -3,8 +3,8 @@ const { createTrip, getTrips } = require('../model/tripModel');
 const createTripController = async (req, res) => {
   try {
     const { from, to, departureDate, departureTime, arrivalDate, arrivalTime, title, destinationCountry, destinationCity, activities, notes } = req.body;
-    const userId = req.user.id; // Assuming the user ID is stored in req.user
-    console.log('Authenticated user ID:', userId); // Debug log
+    const userId = req.user.id; 
+    console.log('Authenticated user ID:', userId); 
 
     const tripData = {
       from,
@@ -20,8 +20,7 @@ const createTripController = async (req, res) => {
       notes,
       createdBy: userId
     };
-
-    console.log('Trip data:', tripData); // Debug log
+    console.log('Trip data:', tripData);
 
     const newTrip = await createTrip(tripData, userId);
     res.status(201).json({ trip: newTrip, message: 'Trip created successfully' });

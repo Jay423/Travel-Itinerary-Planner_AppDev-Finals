@@ -21,7 +21,6 @@ function TripPlanner() {
   const handleChange = (event) => {
     const { name, value } = event.target;
     setTripData({ ...tripData, [name]: value });
-    console.log(`Updated ${name}: ${value}`); // Debug log
   };
 
   const handleActivityChange = (index, event) => {
@@ -29,7 +28,6 @@ function TripPlanner() {
     const newActivities = [...tripData.activities];
     newActivities[index][name] = value;
     setTripData({ ...tripData, activities: newActivities });
-    console.log(`Updated activity ${index} ${name}: ${value}`); // Debug log
   };
 
   const addActivity = () => {
@@ -41,12 +39,10 @@ function TripPlanner() {
 
   const handleCountrySelect = (country) => {
     setTripData({ ...tripData, destinationCountry: country });
-    console.log(`Selected country: ${country}`); // Debug log
   };
 
   const handleCitySelect = (city) => {
     setTripData({ ...tripData, destinationCity: city });
-    console.log(`Selected city: ${city}`); // Debug log
   };
 
   useEffect(() => {
@@ -55,7 +51,6 @@ function TripPlanner() {
       const month = date.toLocaleString('default', { month: 'long' });
       const day = date.getDate();
       const fromValue = `${month} ${day}`;
-      console.log(`Setting from: ${fromValue}`); // Debug log
       setTripData((prevData) => ({ ...prevData, from: fromValue }));
     }
   }, [tripData.departureDate]);
@@ -66,17 +61,15 @@ function TripPlanner() {
       const month = date.toLocaleString('default', { month: 'long' });
       const day = date.getDate();
       const toValue = `${month} ${day}`;
-      console.log(`Setting to: ${toValue}`); // Debug log
       setTripData((prevData) => ({ ...prevData, to: toValue }));
     }
   }, [tripData.arrivalDate]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log('Submitting trip data:', tripData); // Debug log
     try {
       const token = localStorage.getItem('authToken');
-      console.log('Token:', token); // Debug log
+
       const response = await axios.post('http://localhost:5001/routes/trip', tripData, {
         headers: {
           Authorization: `Bearer ${token}`

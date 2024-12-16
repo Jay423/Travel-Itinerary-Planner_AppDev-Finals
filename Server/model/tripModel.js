@@ -62,7 +62,6 @@ const Trip = sequelize.define('Trip', {
 
 const createTrip = async (tripData, userId) => {
   try {
-    console.log('Creating trip with userId:', userId); // Debug log
     const newTrip = await Trip.create({
       from: tripData.from,
       to: tripData.to,
