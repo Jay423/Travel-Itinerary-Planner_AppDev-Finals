@@ -10,7 +10,7 @@ const LandingPage = () => {
           {/* <img src='/HomepagePic.png' alt='homepage' className='bgpic'></img> */}
             
             <section className="topbutton">
-                <button><a href='/'>home</a></button>
+                <button><a href='/home'>home</a></button>
                 <button><a href='/'>contact</a></button>
                 <button><a href='/'>Download the app</a></button>
             </section>
