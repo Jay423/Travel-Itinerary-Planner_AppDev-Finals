@@ -61,7 +61,27 @@ function TripPlanner() {
               Authorization: `Bearer ${token}`,
             },
           });
-          setTripData(response.data);
+          const trip = response.data;
+          setTripData({
+            from: trip.from,
+            to: trip.to,
+            departureDate: trip.departureDate,
+            departureTime: trip.departureTime,
+            arrivalDate: trip.arrivalDate,
+            arrivalTime: trip.arrivalTime,
+            title: trip.title,
+            destinationCountry: trip.destinationCountry,
+            destinationCity: trip.destinationCity,
+            activities: trip.Activities.map(activity => ({
+              name: activity.activity_name,
+              place: activity.venue,
+              date: activity.date,
+              timeStart: activity.time_start,
+              timeEnd: activity.time_end,
+              description: activity.activity_description,
+            })),
+            notes: trip.notes || '',
+          });
         } catch (error) {
           console.error('Error fetching trip data:', error);
         }

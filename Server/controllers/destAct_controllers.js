@@ -32,45 +32,43 @@ const create_destAct_Controller = async (req, res) => {
       title,
       destinationCountry,
       destinationCity,
+      userId,
     };
     console.log('Destination data:', tripData);
 
     const newDestination = await Destination.create(tripData);
-    let activityId = null;
 
     if (activities && Array.isArray(activities)) {
       for (const activityData of activities) {
         const { name, description, place, date, timeStart, timeEnd } = activityData;
 
-        if (!name || !date || !timeStart || !timeEnd) {
-          console.warn(`Skipping activity due to missing required fields: ${JSON.stringify(activityData)}`);
-          continue;
-        }
-
-        const [activity, created] = await Activity.findOrCreate({
-          where: { activity_name: name },
-          defaults: {
+        try {
+          const activity = await Activity.create({
+            activity_name: name || null,
             activity_description: description || null,
             venue: place || null,
-            date,
-            time_start: timeStart,
-            time_end: timeEnd,
-          },
-        });
+            date: date || null,
+            time_start: timeStart || null,
+            time_end: timeEnd || null,
+          });
 
-        activityId = activity.id;
+          console.log('Created activity:', activity.id);
+
+          if (activity && activity.id) {
+            await DestinationActivity.create({
+              destination_id: newDestination.id,
+              activity_id: activity.id,
+            });
+          } else {
+            console.error('Failed to create activity:', activityData);
+          }
+        } catch (activityError) {
+          console.error('Error creating activity:', activityError);
+        }
       }
     } else {
       console.log('No activities provided, keeping activity_id as null');
     }
-
-    const destinationActivityData = {
-      destination_id: newDestination.id,  
-      activity_id: activityId, 
-    };
-
-    const newDestinationActivity = await DestinationActivity.create(destinationActivityData);
-    console.log('DestinationActivity created:', newDestinationActivity);
 
     res.status(201).json({ Destination: newDestination, message: 'Destination created successfully with activities.' });
 
@@ -141,25 +139,26 @@ const updateDestinationController = async (req, res) => {
       for (const activityData of activities) {
         const { name, description, place, date, timeStart, timeEnd } = activityData;
 
-        if (!name || !date || !timeStart || !timeEnd) {
-          console.warn(`Skipping activity due to missing required fields: ${JSON.stringify(activityData)}`);
-          continue;
-        }
-
-        const [activity, created] = await Activity.findOrCreate({
-          where: { activity_name: name },
-          defaults: {
+        try {
+          const activity = await Activity.create({
+            activity_name: name || null,
             activity_description: description || null,
             venue: place || null,
-            date,
-            time_start: timeStart,
-            time_end: timeEnd,
-          },
-        });
+            date: date || null,
+            time_start: timeStart || null,
+            time_end: timeEnd || null,
+          });
 
-        await DestinationActivity.findOrCreate({
-          where: { destination_id: id, activity_id: activity.id },
-        });
+          if (activity && activity.id) {
+            await DestinationActivity.findOrCreate({
+              where: { destination_id: id, activity_id: activity.id },
+            });
+          } else {
+            console.error('Failed to create activity:', activityData);
+          }
+        } catch (activityError) {
+          console.error('Error creating activity:', activityError);
+        }
       }
     }
 
@@ -174,6 +173,10 @@ const deleteDestinationActivityAndDestinationIdController = async (req, res) => 
   try {
     const { id } = req.params;
 
+    const activities = await DestinationActivity.findAll({
+      where: { destination_id: id }
+    });
+
     const deletedActivityCount = await DestinationActivity.destroy({
       where: { destination_id: id }
     });
@@ -181,6 +184,12 @@ const deleteDestinationActivityAndDestinationIdController = async (req, res) => 
     const deletedDestinationCount = await Destination.destroy({
       where: { id }
     });
+
+    for (const activity of activities) {
+      await Activity.destroy({
+        where: { id: activity.activity_id }
+      });
+    }
 
     if (deletedActivityCount === 0 && deletedDestinationCount === 0) {
       return res.status(404).json({ message: 'No Destination or DestinationActivity found with the given destination_id' });
