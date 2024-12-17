@@ -353,7 +353,7 @@ function UserProfile() {
               {isEdit ? 'Save' : 'Edit'}
             </button>
             <button onClick={handleResetPasswordClick}>Reset Password</button>
-            <button onClick={() => window.location.href = '/'}>Logout</button>
+            <button onClick={() => { localStorage.removeItem('authToken'); window.location.href = '/'; }}>Logout</button>
           </div>
           {error && (
             <div className="error-message">
