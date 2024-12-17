@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 import './TripPlanner.css'; // Import the CSS file
 import CityCountryAutocomplete from './CityAutocomplete';
 
@@ -19,6 +20,8 @@ function TripPlanner() {
     activities: [],
     notes: '',
   });
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchTrips = async () => {
@@ -102,8 +105,17 @@ function TripPlanner() {
         }
       });
       console.log('Trip created:', response.data);
+      navigate('/calendar'); // Navigate back to the calendar page
     } catch (error) {
       console.error('Error creating trip:', error);
+    }
+  };
+
+  const handleClick = () => {
+    if (!tripData.from || !tripData.to || !tripData.departureDate || !tripData.departureTime || !tripData.arrivalDate || !tripData.arrivalTime || !tripData.title || !tripData.destinationCountry || !tripData.destinationCity) {
+      setError('All required fields must be provided.');
+    } else {
+      handleSubmit();
     }
   };
 
@@ -177,7 +189,7 @@ function TripPlanner() {
         <div className="notes-container">
   <textarea name="notes" placeholder="Notes" value={tripData.notes} onChange={handleChange} />
 </div>
-<button type="submit">Create Trip</button>
+<button type="button" onClick={handleClick}>Create Trip</button>
       </form>
         </div>
     </div>

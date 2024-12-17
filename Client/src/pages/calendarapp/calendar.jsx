@@ -154,28 +154,6 @@ function Calendar() {
     );
   };
 
-  const upcomingTrips = [
-    { 
-      date: 'July 6 - 9', 
-      title: 'Birthday', 
-      location: 'Berlin, Germany', 
-      createdBy: { 
-        name: 'John Doe', 
-        profileImage: '/path/to/profile-image.jpg' 
-      } 
-    },
-    { 
-      date: 'Nov 28 - Oct 5', 
-      title: 'Trip across Europe', 
-      location: 'Paris, France', 
-      createdBy: { 
-        name: 'Jane Doe', 
-        profileImage: '/path/to/profile-image.jpg' 
-      } 
-    },
-    // Add more trip objects as needed
-  ];
-
   useEffect(() => {
     const fetchEvents = async () => {
       const token = localStorage.getItem('authToken');
@@ -259,13 +237,13 @@ function Calendar() {
         </div>
         <div className="upcoming-trips">
           <h2>UPCOMING TRIPS</h2>
-          {upcomingTrips.map((trip, index) => (
+          {events.map((trip, index) => (
             <TripCard 
-            key={index} 
-            date={`${trip.departureDate} - ${trip.arrivalDate}`} 
-            title={trip.title} 
-            location={`${trip.destinationCity}, ${trip.destinationCountry}`} 
-            createdBy={trip.createdBy} 
+              key={index} 
+              date={`${trip.departureDate} - ${trip.arrivalDate}`} 
+              title={trip.title} 
+              location={`${trip.destinationCity}, ${trip.destinationCountry}`} 
+              createdBy={{ name: 'User', profileImage: '/path/to/profile-image.jpg' }} 
             />
           ))}
           <button className="create-trip-button" onClick={handleCreateTrip}>+ Create Trip</button> 

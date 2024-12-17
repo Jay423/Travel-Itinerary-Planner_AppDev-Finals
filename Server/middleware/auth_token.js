@@ -8,11 +8,15 @@ const authToken = (req, res, next) => {
     }
 
     jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
-        console.log('Verified User:', user);
         if (err) {
             return res.sendStatus(403); 
         }
-        console.log('Decoded Payload:', user); 
+        
+        console.log('Decoded Payload:', { 
+            id: user.id, 
+            email: user.email 
+        }); 
+
         req.user = user; 
         next(); 
     });
