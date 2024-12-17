@@ -19,5 +19,6 @@ router.put('/trip/:id', rateLimiter, authToken, destActController.updateDestinat
 router.delete('/trip/:id', rateLimiter, authToken, destActController.deleteDestinationActivityAndDestinationIdController);
 router.get('/users', userController.getAllUsersController);
 router.put('/pfp', rateLimiter, authToken, userController.updateUserProfile);
+router.post('/verify-password', rateLimiter, authToken, userController.verifyPassword);
 
 module.exports = router;

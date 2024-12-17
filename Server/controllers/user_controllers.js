@@ -155,8 +155,35 @@ const updateUserProfile = async (req, res) => {
   }
 };
 
-module.exports = {registerUserController,
-                  loginUserController,
-                  getAllUsersController,
-                  fetchUserProfile,
-                  updateUserProfile };
+const verifyPassword = async (req, res) => {
+  try {
+    if (!req.user || !req.user.id) {
+      return res.status(401).json({ error: 'Unauthorized' });
+    }
+
+    const { currentPassword } = req.body;
+    const user = await getUserById(req.user.id);
+
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    const passwordMatch = await bcrypt.compare(currentPassword, user.password);
+    if (!passwordMatch) {
+      return res.status(401).json({ valid: false });
+    }
+
+    res.json({ valid: true });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+module.exports = {
+  registerUserController,
+  loginUserController,
+  getAllUsersController,
+  fetchUserProfile,
+  updateUserProfile,
+  verifyPassword
+};

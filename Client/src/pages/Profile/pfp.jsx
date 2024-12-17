@@ -13,7 +13,9 @@ function UserProfile() {
   const [number, setNumber] = useState('');
   const [birthday, setBirthday] = useState('');
   const [gender, setGender] = useState('');
-  const [password, setPassword] = useState('');
+  const [password, setPassword] = useState('********'); // Always display masked password
+  const [currentPassword, setCurrentPassword] = useState('');
+  const [newPassword, setNewPassword] = useState('');
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [isPasswordReset, setIsPasswordReset] = useState(false);
   const [error, setError] = useState(null);
@@ -39,7 +41,6 @@ function UserProfile() {
         setFirstName(data.first_name || '');
         setLastName(data.last_name || '');
         setEmail(data.email || '');
-        setPassword(data.password || '');
         setNumber(data.number || '');
         setBirthday(data.birthday || '');
         setGender(data.gender || '');
@@ -79,6 +80,34 @@ function UserProfile() {
           return;
         }
 
+        if (isPasswordReset) {
+          if (!currentPassword) {
+            setError('Current password is required.');
+
+            setIsPasswordReset(false);
+            setCurrentPassword('');
+            setIsEdit(false);
+            return;
+          }
+
+          const verifyResponse = await axios.post('http://localhost:5001/routes/verify-password', {
+            currentPassword
+          }, {
+            headers: {
+              'Authorization': `Bearer ${token}`
+            }
+          });
+
+          if (!verifyResponse.data.valid) {
+            setError('Current password is incorrect.');
+            // Reset state
+            setIsPasswordReset(false);
+            setCurrentPassword('');
+            setIsEdit(false);
+            return;
+          }
+        }
+
         const updatedUser = {
           first_name: firstName,
           last_name: lastName,
@@ -86,7 +115,7 @@ function UserProfile() {
           number: number,
           birthday: birthday,
           gender: gender,
-          password: isPasswordReset ? password : undefined,
+          password: isPasswordReset && newPassword ? newPassword : undefined,
         };
 
         await axios.put('http://localhost:5001/routes/pfp', updatedUser, {
@@ -96,11 +125,18 @@ function UserProfile() {
         });
 
         console.log('User profile updated successfully');
-        setIsPasswordReset(false); // Reset the password reset state
+        setIsPasswordReset(false); 
+        setCurrentPassword(''); 
+        setNewPassword(''); 
+
       } catch (error) {
         setError('Error updating user profile.');
         console.error('Error updating user data:', error);
       }
+
+      setIsPasswordReset(false);
+      setCurrentPassword('');
+      setNewPassword('');
     }
     setIsEdit(!isEdit);
   };
@@ -127,21 +163,22 @@ function UserProfile() {
       case 'gender':
         setGender(value);
         break;
-      case 'password':
-        setPassword(value);
+      case 'newPassword':
+        setNewPassword(value);
+        break;
+      case 'currentPassword':
+        setCurrentPassword(value);
         break;
       default:
         break;
     }
   };
 
-  const togglePasswordVisibility = () => {
-    setPasswordVisible(!passwordVisible);
-  };
-
   const handleResetPasswordClick = () => {
     setIsPasswordReset(true);
-    setPassword('');
+    setNewPassword('');
+    setCurrentPassword('');
+    setIsEdit(true); // Ensure the form is in edit mode
   };
 
   return (
@@ -232,29 +269,33 @@ function UserProfile() {
               <p>{email || "N/A"}</p>
             )}
           </div>
+          {isPasswordReset && (
+            <div className="form-group">
+              <label htmlFor="currentPassword">Current Password:</label>
+              <input
+                type="password"
+                id="currentPassword"
+                name="currentPassword"
+                value={currentPassword}
+                onChange={handleInputChange}
+                placeholder="Enter your current password"
+              />
+            </div>
+          )}
           <div className="form-group">
             <label htmlFor="password">Password:</label>
             {isEdit ? (
-              <div className="password-container">
-                <input
-                  type={passwordVisible ? "text" : "password"}
-                  id="password"
-                  name="password"
-                  value={password}
-                  onChange={handleInputChange}
-                  placeholder="Enter your password"
-                  disabled={!isPasswordReset}
-                />
-                <FontAwesomeIcon
-                  icon={passwordVisible ? faEyeSlash : faEye}
-                  className="toggle-password-icon"
-                  onMouseDown={togglePasswordVisibility}
-                  onMouseUp={togglePasswordVisibility}
-                  onMouseLeave={() => setPasswordVisible(false)}
-                />
-              </div>
+              <input
+                type="password"
+                id="newPassword"
+                name="newPassword"
+                value={newPassword}
+                onChange={handleInputChange}
+                placeholder="Enter your new password"
+                disabled={!isPasswordReset}
+              />
             ) : (
-              <p>{password || "N/A"}</p>
+              <p>********</p>
             )}
           </div>
           <div className="form-group">
