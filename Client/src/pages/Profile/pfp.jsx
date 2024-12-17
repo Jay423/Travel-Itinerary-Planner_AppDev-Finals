@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './pfp.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 
 function UserProfile() {
   const [profileImage, setProfileImage] = useState(null);
@@ -11,7 +13,11 @@ function UserProfile() {
   const [number, setNumber] = useState('');
   const [birthday, setBirthday] = useState('');
   const [gender, setGender] = useState('');
-  const [password, setPassword] = useState('');
+  const [password, setPassword] = useState('********'); // Always display masked password
+  const [currentPassword, setCurrentPassword] = useState('');
+  const [newPassword, setNewPassword] = useState('');
+  const [passwordVisible, setPasswordVisible] = useState(false);
+  const [isPasswordReset, setIsPasswordReset] = useState(false);
   const [error, setError] = useState(null);
 
   useEffect(() => {
@@ -32,13 +38,12 @@ function UserProfile() {
         });
 
         const data = response.data;
-        setFirstName(data.first_name);
-        setLastName(data.last_name);
-        setEmail(data.email);
-        setPassword(data.password);
-        setNumber(data.number);
-        setBirthday(data.birthday);
-        setGender(data.gender);
+        setFirstName(data.first_name || '');
+        setLastName(data.last_name || '');
+        setEmail(data.email || '');
+        setNumber(data.number || '');
+        setBirthday(data.birthday || '');
+        setGender(data.gender || '');
 
       } catch (error) {
         setError('Error fetching user profile.');
@@ -65,7 +70,74 @@ function UserProfile() {
     setProfileImage(null);
   };
 
-  const handleEditClick = () => {
+  const handleEditClick = async () => {
+    if (isEdit) {
+      try {
+        const token = localStorage.getItem('authToken');
+        if (!token) {
+          setError('No auth token found. Please log in.');
+          window.location.href = '/login';
+          return;
+        }
+
+        if (isPasswordReset) {
+          if (!currentPassword) {
+            setError('Current password is required.');
+
+            setIsPasswordReset(false);
+            setCurrentPassword('');
+            setIsEdit(false);
+            return;
+          }
+
+          const verifyResponse = await axios.post('http://localhost:5001/routes/verify-password', {
+            currentPassword
+          }, {
+            headers: {
+              'Authorization': `Bearer ${token}`
+            }
+          });
+
+          if (!verifyResponse.data.valid) {
+            setError('Current password is incorrect.');
+            // Reset state
+            setIsPasswordReset(false);
+            setCurrentPassword('');
+            setIsEdit(false);
+            return;
+          }
+        }
+
+        const updatedUser = {
+          first_name: firstName,
+          last_name: lastName,
+          email: email,
+          number: number,
+          birthday: birthday,
+          gender: gender,
+          password: isPasswordReset && newPassword ? newPassword : undefined,
+        };
+
+        await axios.put('http://localhost:5001/routes/pfp', updatedUser, {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        });
+
+        console.log('User profile updated successfully');
+        setIsPasswordReset(false); 
+        setCurrentPassword(''); 
+        setNewPassword(''); 
+
+      } catch (error) {
+        setError('Error updating user profile.');
+        console.error('Error updating user data:', error);
+      }
+
+      setIsPasswordReset(false);
+      setCurrentPassword('');
+      setNewPassword('');
+    }
     setIsEdit(!isEdit);
   };
 
@@ -91,12 +163,22 @@ function UserProfile() {
       case 'gender':
         setGender(value);
         break;
-      case 'password':
-        setPassword(value);
+      case 'newPassword':
+        setNewPassword(value);
+        break;
+      case 'currentPassword':
+        setCurrentPassword(value);
         break;
       default:
         break;
     }
+  };
+
+  const handleResetPasswordClick = () => {
+    setIsPasswordReset(true);
+    setNewPassword('');
+    setCurrentPassword('');
+    setIsEdit(true); // Ensure the form is in edit mode
   };
 
   return (
@@ -187,19 +269,33 @@ function UserProfile() {
               <p>{email || "N/A"}</p>
             )}
           </div>
+          {isPasswordReset && (
+            <div className="form-group">
+              <label htmlFor="currentPassword">Current Password:</label>
+              <input
+                type="password"
+                id="currentPassword"
+                name="currentPassword"
+                value={currentPassword}
+                onChange={handleInputChange}
+                placeholder="Enter your current password"
+              />
+            </div>
+          )}
           <div className="form-group">
             <label htmlFor="password">Password:</label>
             {isEdit ? (
               <input
-                type="text"
-                id="password"
-                name="password"
-                value={password}
+                type="password"
+                id="newPassword"
+                name="newPassword"
+                value={newPassword}
                 onChange={handleInputChange}
-                placeholder="Enter your password"
+                placeholder="Enter your new password"
+                disabled={!isPasswordReset}
               />
             ) : (
-              <p>{password || "N/A"}</p>
+              <p>********</p>
             )}
           </div>
           <div className="form-group">
@@ -252,7 +348,7 @@ function UserProfile() {
             <button onClick={handleEditClick}>
               {isEdit ? 'Save' : 'Edit'}
             </button>
-            <button>Reset Password</button>
+            <button onClick={handleResetPasswordClick}>Reset Password</button>
             <button>Logout</button>
           </div>
         </div>
