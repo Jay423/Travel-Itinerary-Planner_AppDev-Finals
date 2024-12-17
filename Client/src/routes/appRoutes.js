@@ -1,4 +1,4 @@
-import Home from '../pages/homepage/homePage';
+import Home from '../pages/homepage/HomePage';
 import Login from '../pages/login/loginUser';
 import Register from '../pages/register/registerUser';
 import Landing from '../pages/landingpage/LandingPage';
