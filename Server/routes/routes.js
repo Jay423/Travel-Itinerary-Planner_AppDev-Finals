@@ -18,5 +18,6 @@ router.get('/trip/:id', rateLimiter, authToken, destActController.getDestination
 router.put('/trip/:id', rateLimiter, authToken, destActController.updateDestinationController); 
 router.delete('/trip/:id', rateLimiter, authToken, destActController.deleteDestinationActivityAndDestinationIdController);
 router.get('/users', userController.getAllUsersController);
+router.put('/pfp', rateLimiter, authToken, userController.updateUserProfile);
 
 module.exports = router;

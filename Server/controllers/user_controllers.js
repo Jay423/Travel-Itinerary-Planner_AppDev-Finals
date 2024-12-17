@@ -123,7 +123,40 @@ const fetchUserProfile = async (req, res) => {
   }
 };
 
+const updateUserProfile = async (req, res) => {
+  try {
+    if (!req.user || !req.user.id) {
+      return res.status(401).json({ error: 'Unauthorized' });
+    }
+
+    const { first_name, last_name, email, number, birthday, gender, password } = req.body;
+
+    const user = await getUserById(req.user.id);
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    user.first_name = first_name;
+    user.last_name = last_name;
+    user.email = email;
+    user.number = number;
+    user.birthday = birthday;
+    user.gender = gender;
+
+    if (password && password !== user.password) {
+      user.password = await bcrypt.hash(password, 10);
+    }
+
+    await user.save();
+
+    res.json({ message: 'User profile updated successfully' });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
 module.exports = {registerUserController,
                   loginUserController,
                   getAllUsersController,
-                  fetchUserProfile };
+                  fetchUserProfile,
+                  updateUserProfile };

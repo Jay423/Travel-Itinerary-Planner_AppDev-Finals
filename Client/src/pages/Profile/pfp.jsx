@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './pfp.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 
 function UserProfile() {
   const [profileImage, setProfileImage] = useState(null);
@@ -12,6 +14,8 @@ function UserProfile() {
   const [birthday, setBirthday] = useState('');
   const [gender, setGender] = useState('');
   const [password, setPassword] = useState('');
+  const [passwordVisible, setPasswordVisible] = useState(false);
+  const [isPasswordReset, setIsPasswordReset] = useState(false);
   const [error, setError] = useState(null);
 
   useEffect(() => {
@@ -32,13 +36,13 @@ function UserProfile() {
         });
 
         const data = response.data;
-        setFirstName(data.first_name);
-        setLastName(data.last_name);
-        setEmail(data.email);
-        setPassword(data.password);
-        setNumber(data.number);
-        setBirthday(data.birthday);
-        setGender(data.gender);
+        setFirstName(data.first_name || '');
+        setLastName(data.last_name || '');
+        setEmail(data.email || '');
+        setPassword(data.password || '');
+        setNumber(data.number || '');
+        setBirthday(data.birthday || '');
+        setGender(data.gender || '');
 
       } catch (error) {
         setError('Error fetching user profile.');
@@ -65,7 +69,39 @@ function UserProfile() {
     setProfileImage(null);
   };
 
-  const handleEditClick = () => {
+  const handleEditClick = async () => {
+    if (isEdit) {
+      try {
+        const token = localStorage.getItem('authToken');
+        if (!token) {
+          setError('No auth token found. Please log in.');
+          window.location.href = '/login';
+          return;
+        }
+
+        const updatedUser = {
+          first_name: firstName,
+          last_name: lastName,
+          email: email,
+          number: number,
+          birthday: birthday,
+          gender: gender,
+          password: isPasswordReset ? password : undefined,
+        };
+
+        await axios.put('http://localhost:5001/routes/pfp', updatedUser, {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        });
+
+        console.log('User profile updated successfully');
+        setIsPasswordReset(false); // Reset the password reset state
+      } catch (error) {
+        setError('Error updating user profile.');
+        console.error('Error updating user data:', error);
+      }
+    }
     setIsEdit(!isEdit);
   };
 
@@ -97,6 +133,15 @@ function UserProfile() {
       default:
         break;
     }
+  };
+
+  const togglePasswordVisibility = () => {
+    setPasswordVisible(!passwordVisible);
+  };
+
+  const handleResetPasswordClick = () => {
+    setIsPasswordReset(true);
+    setPassword('');
   };
 
   return (
@@ -190,14 +235,24 @@ function UserProfile() {
           <div className="form-group">
             <label htmlFor="password">Password:</label>
             {isEdit ? (
-              <input
-                type="text"
-                id="password"
-                name="password"
-                value={password}
-                onChange={handleInputChange}
-                placeholder="Enter your password"
-              />
+              <div className="password-container">
+                <input
+                  type={passwordVisible ? "text" : "password"}
+                  id="password"
+                  name="password"
+                  value={password}
+                  onChange={handleInputChange}
+                  placeholder="Enter your password"
+                  disabled={!isPasswordReset}
+                />
+                <FontAwesomeIcon
+                  icon={passwordVisible ? faEyeSlash : faEye}
+                  className="toggle-password-icon"
+                  onMouseDown={togglePasswordVisibility}
+                  onMouseUp={togglePasswordVisibility}
+                  onMouseLeave={() => setPasswordVisible(false)}
+                />
+              </div>
             ) : (
               <p>{password || "N/A"}</p>
             )}
@@ -252,7 +307,7 @@ function UserProfile() {
             <button onClick={handleEditClick}>
               {isEdit ? 'Save' : 'Edit'}
             </button>
-            <button>Reset Password</button>
+            <button onClick={handleResetPasswordClick}>Reset Password</button>
             <button>Logout</button>
           </div>
         </div>
