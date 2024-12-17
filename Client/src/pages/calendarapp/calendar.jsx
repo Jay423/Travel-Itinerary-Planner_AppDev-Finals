@@ -35,17 +35,17 @@ function CalendarHeader({
   );
 }
 
-function TripCard({ date, title, location, createdBy }) {
+function TripCard({ trip, onEdit }) {
   return (
     <div className="trip-card">
       <div className="trip-header">
-        <span>{date}</span>
-        <button className="edit">Edit</button>
+        <span>{`${trip.departureDate} - ${trip.arrivalDate}`}</span>
+        <button className="edit" onClick={() => onEdit(trip.id)}>Edit</button>
       </div>
-      <h3>{title}</h3>
-      <p>{location}</p>
+      <h3>{trip.title}</h3>
+      <p>{`${trip.destinationCity}, ${trip.destinationCountry}`}</p>
       <div className="trip-footer">
-        <span>Made by <img src={createdBy.profileImage} alt={createdBy.name} className="profile-icon" /></span>
+      {/* <span>Made by <img src={createdBy.profileImage} alt={createdBy.name} className="profile-icon" /></span> */}
         <button className="see-note-button">See Note</button>
       </div>
     </div>
@@ -62,6 +62,11 @@ function Calendar() {
 
   const handleCreateTrip = () => {
     navigate('/trip');
+  };
+
+  const handleEditTrip = (tripId) => {
+    console.log('Navigating to edit trip:', tripId);
+    navigate('/trip', { state: { isEditMode: true, tripId } });
   };
 
   const handlePrevMonth = () => {
@@ -240,10 +245,8 @@ function Calendar() {
           {events.map((trip, index) => (
             <TripCard 
               key={index} 
-              date={`${trip.departureDate} - ${trip.arrivalDate}`} 
-              title={trip.title} 
-              location={`${trip.destinationCity}, ${trip.destinationCountry}`} 
-              createdBy={{ name: 'User', profileImage: '/path/to/profile-image.jpg' }} 
+              trip={trip}
+              onEdit={handleEditTrip}
             />
           ))}
           <button className="create-trip-button" onClick={handleCreateTrip}>+ Create Trip</button> 

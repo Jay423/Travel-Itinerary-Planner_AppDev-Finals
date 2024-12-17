@@ -80,4 +80,28 @@ const create_destAct_Controller = async (req, res) => {
   }
 };
 
-module.exports = { create_destAct_Controller };
+const getTripByIdController = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const trip = await Destination.findOne({
+      where: { id },
+      include: [
+        {
+          model: Activity,
+          through: { attributes: [] },
+        },
+      ],
+    });
+
+    if (!trip) {
+      return res.status(404).json({ message: 'Trip not found' });
+    }
+
+    res.status(200).json(trip);
+  } catch (err) {
+    console.error('Error fetching trip:', err);
+    res.status(500).json({ message: 'Failed to fetch trip' });
+  }
+};
+
+module.exports = { create_destAct_Controller, getTripByIdController };
