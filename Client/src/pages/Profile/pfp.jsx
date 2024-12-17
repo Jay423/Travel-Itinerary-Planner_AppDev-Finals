@@ -62,7 +62,7 @@ function UserProfile() {
             <li><a href="/">Home</a></li>
             <li><a href="/Itinerary">Itinerary</a></li>
             <li><a href="/Discover">Discover</a></li>
-            <li><a href="/download-the-app">Download the App</a></li>
+            <li><a href="/pfp">Profile</a></li>
           </ul>
         </div>
         <div className="navbar-right">

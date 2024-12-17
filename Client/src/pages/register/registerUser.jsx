@@ -62,6 +62,25 @@ function App() {
             onChange={handleInputChange}
             required
           />
+
+          <input
+            type="fname"
+            name="fname"
+            placeholder="Enter your First Name"
+            value={data.fname}
+            onChange={handleInputChange}
+            required
+          />
+
+          <input
+            type="lname"
+            name="lname"
+            placeholder="Enter your Last Name"
+            value={data.lname}
+            onChange={handleInputChange}
+            required
+          />
+        
         
           {error && <p className="error-message">{error}</p>}
           {success && <p className="success-message">{success}</p>}

@@ -13,7 +13,8 @@ router.get('/home', rateLimiter, authToken, loggingMiddleware, userController.fe
 router.get('/calendar', rateLimiter, authToken, calendarController.getUpcomingTripsController);
 router.get('/trip', rateLimiter, authToken, userController.fetchUserProfile);
 router.post('/trip', rateLimiter, authToken, destActController.create_destAct_Controller); 
-router.get('/trip/:id', rateLimiter, authToken, destActController.getTripByIdController); // New route to fetch a single trip by ID
+router.get('/trip/:id', rateLimiter, authToken, destActController.getDestinationByIdController); // New route to fetch a single trip by ID
+router.delete('/trip/:id', rateLimiter, authToken, destActController.deleteDestinationActivityByDestinationIdController); // New route to delete a DestinationActivity by destination_id
 router.get('/users', userController.getAllUsersController);
 
 module.exports = router;
