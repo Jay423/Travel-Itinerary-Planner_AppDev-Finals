@@ -6,7 +6,9 @@ const bcrypt = require('bcrypt');
 
 const validRegistration = Joi.object({
   email: Joi.string().email().required(),
-  password: Joi.string().min(8).required()
+  password: Joi.string().min(8).required(),
+  first_name: Joi.string().required(),
+  last_name: Joi.string().required(),
 });
 
 const getAllUsersController = async (req, res) => {
@@ -39,7 +41,7 @@ const registerUserController = async (req, res) => {
         return res.status(400).json({ message: result.error.details[0].message });
       }
 
-    const { email, password } = req.body;
+    const { email, password, first_name, last_name } = req.body;
     const users = await getAllUsers();
 
     const emailExists = users.find(user => user.email === email);
@@ -57,6 +59,8 @@ const registerUserController = async (req, res) => {
     const newUser = await registerUser({
       email,
       password: hashedPassword,
+      first_name,
+      last_name,
     });
     console.log(`User successfully registered: ${newUser.email}`);
 
@@ -86,8 +90,8 @@ const loginUserController = async (req, res) => {
     }
 
     const payload = {
-      id: user.id,        // User ID added here
-      email: user.email,  // Email can be included if needed
+      id: user.id,
+      email: user.email,
     };
 
     const accessToken = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '1h' });

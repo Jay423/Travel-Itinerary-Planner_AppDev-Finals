@@ -155,7 +155,7 @@ function TripPlanner() {
         }
       });
       console.log('Trip created:', response.data);
-      navigate('/calendar'); // Navigate back to the calendar page
+      navigate('/calendar');
     } catch (error) {
       console.error('Error creating trip:', error);
     }

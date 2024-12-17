@@ -1,4 +1,4 @@
-const { Destination, Activity, DestinationActivity } = require('../associations/associationsEntity'); // Import from index.js
+const { Destination, Activity, DestinationActivity } = require('../associations/associationsEntity');
 
 const create_destAct_Controller = async (req, res) => {
   try {
