@@ -2,7 +2,7 @@ const { Sequelize, DataTypes } = require('sequelize');
 const sequelize = require('../config/databasepg');
 
 const Activity = sequelize.define('Activity', {
-  activity_id: {
+  id: {
     type: DataTypes.INTEGER,
     primaryKey: true,
     autoIncrement: true,
@@ -12,7 +12,7 @@ const Activity = sequelize.define('Activity', {
     allowNull: false,
   },
   activity_description: {
-    type: DataTypes.TEXT,
+    type: DataTypes.STRING,
     allowNull: true,
   },
   venue: {
@@ -20,19 +20,19 @@ const Activity = sequelize.define('Activity', {
     allowNull: true,
   },
   date: {
-    type: DataTypes.DATEONLY,
-    allowNull: false,
+    type: DataTypes.DATE,
+    allowNull: true,
   },
   time_start: {
     type: DataTypes.TIME,
-    allowNull: false,
+    allowNull: true,
   },
   time_end: {
     type: DataTypes.TIME,
-    allowNull: false,
+    allowNull: true,
   },
 }, {
-  tableName: 'Activity',
+  tableName: 'Activities',
   timestamps: false,
 });
 
