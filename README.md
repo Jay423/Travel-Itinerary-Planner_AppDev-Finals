@@ -44,12 +44,13 @@ Tailwind is a third-party utility-first CSS framework, It writes styles directly
     your CSS file directory is.
 
 Create Server folder for the backends:
-```Installing Dependencies
+``Installing Dependencies
         npm install bcrypt body-parser dotenv express express-rate-limit joi
         jsonwebtoken morgan mysql mysql2 sequelize sequelize-cli pg axios cors nodemon--save-dev
         To run Nodemon add this to the scripts in 
-        package.json```
-        file.
+        package.json``
+
+file.
     Nodemon
         "start": "nodemon app.js"
     Files Added
