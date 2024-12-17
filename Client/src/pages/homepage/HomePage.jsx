@@ -46,7 +46,7 @@ const HomePage = () => {
       <div className="navbar-left">
         <img src="/VISTALOGO.png" className='logo' alt="Your Logo" />
         <ul className="navbar-links">
-          <li><a href="/">Home</a></li>
+          <li><a href="/home">Home</a></li>
           <li><a href="/Itinerary">Itinerary</a></li>
           <li><a href="/Discover">Discover</a></li>
           <li><a href="/download-the-app">Download the app</a></li>
