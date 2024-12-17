@@ -80,7 +80,7 @@ const create_destAct_Controller = async (req, res) => {
   }
 };
 
-const getTripByIdController = async (req, res) => {
+const getDestinationByIdController = async (req, res) => {
   try {
     const { id } = req.params;
     const trip = await Destination.findOne({
@@ -94,14 +94,37 @@ const getTripByIdController = async (req, res) => {
     });
 
     if (!trip) {
-      return res.status(404).json({ message: 'Trip not found' });
+      return res.status(404).json({ message: 'Destination not found' });
     }
 
     res.status(200).json(trip);
   } catch (err) {
-    console.error('Error fetching trip:', err);
-    res.status(500).json({ message: 'Failed to fetch trip' });
+    console.error('Error fetching Destination:', err);
+    res.status(500).json({ message: 'Failed to fetch Destination' });
   }
 };
 
-module.exports = { create_destAct_Controller, getTripByIdController };
+const deleteDestinationActivityByDestinationIdController = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const deletedActivityCount = await DestinationActivity.destroy({
+      where: { destination_id: id }
+    });
+
+    const deletedDestinationCount = await Destination.destroy({
+      where: { id }
+    });
+
+    if (deletedActivityCount === 0 && deletedDestinationCount === 0) {
+      return res.status(404).json({ message: 'No Destination or DestinationActivity found with the given destination_id' });
+    }
+
+    res.status(200).json({ message: 'Destination and associated activities deleted successfully' });
+  } catch (err) {
+    console.error('Error deleting Destination and DestinationActivity:', err);
+    res.status(500).json({ message: 'Failed to delete Destination and DestinationActivity' });
+  }
+};
+
+module.exports = { create_destAct_Controller, getDestinationByIdController, deleteDestinationActivityByDestinationIdController };
