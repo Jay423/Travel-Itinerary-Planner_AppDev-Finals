@@ -104,7 +104,73 @@ const getDestinationByIdController = async (req, res) => {
   }
 };
 
-const deleteDestinationActivityByDestinationIdController = async (req, res) => {
+const updateDestinationController = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const {
+      from,
+      to,
+      departureDate,
+      departureTime,
+      arrivalDate,
+      arrivalTime,
+      title,
+      destinationCountry,
+      destinationCity,
+      activities,
+    } = req.body;
+
+    const destination = await Destination.findOne({ where: { id } });
+    if (!destination) {
+      return res.status(404).json({ message: 'Destination not found' });
+    }
+
+    await destination.update({
+      from,
+      to,
+      departureDate,
+      departureTime,
+      arrivalDate,
+      arrivalTime,
+      title,
+      destinationCountry,
+      destinationCity,
+    });
+
+    if (activities && Array.isArray(activities)) {
+      for (const activityData of activities) {
+        const { name, description, place, date, timeStart, timeEnd } = activityData;
+
+        if (!name || !date || !timeStart || !timeEnd) {
+          console.warn(`Skipping activity due to missing required fields: ${JSON.stringify(activityData)}`);
+          continue;
+        }
+
+        const [activity, created] = await Activity.findOrCreate({
+          where: { activity_name: name },
+          defaults: {
+            activity_description: description || null,
+            venue: place || null,
+            date,
+            time_start: timeStart,
+            time_end: timeEnd,
+          },
+        });
+
+        await DestinationActivity.findOrCreate({
+          where: { destination_id: id, activity_id: activity.id },
+        });
+      }
+    }
+
+    res.status(200).json({ message: 'Destination updated successfully' });
+  } catch (err) {
+    console.error('Error updating Destination:', err);
+    res.status(500).json({ message: 'Failed to update Destination' });
+  }
+};
+
+const deleteDestinationActivityAndDestinationIdController = async (req, res) => {
   try {
     const { id } = req.params;
 
@@ -127,4 +193,4 @@ const deleteDestinationActivityByDestinationIdController = async (req, res) => {
   }
 };
 
-module.exports = { create_destAct_Controller, getDestinationByIdController, deleteDestinationActivityByDestinationIdController };
+module.exports = { create_destAct_Controller, getDestinationByIdController, updateDestinationController, deleteDestinationActivityAndDestinationIdController };

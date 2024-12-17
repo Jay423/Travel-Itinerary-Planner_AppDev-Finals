@@ -14,7 +14,8 @@ router.get('/calendar', rateLimiter, authToken, calendarController.getUpcomingTr
 router.get('/trip', rateLimiter, authToken, userController.fetchUserProfile);
 router.post('/trip', rateLimiter, authToken, destActController.create_destAct_Controller); 
 router.get('/trip/:id', rateLimiter, authToken, destActController.getDestinationByIdController);
-router.delete('/trip/:id', rateLimiter, authToken, destActController.deleteDestinationActivityByDestinationIdController);
+router.put('/trip/:id', rateLimiter, authToken, destActController.updateDestinationController); // New route to update a destination
+router.delete('/trip/:id', rateLimiter, authToken, destActController.deleteDestinationActivityAndDestinationIdController);
 router.get('/users', userController.getAllUsersController);
 
 module.exports = router;
