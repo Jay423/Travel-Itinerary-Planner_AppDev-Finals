@@ -12,7 +12,6 @@ const LandingPage = () => {
             <section className="topbutton">
                 <button><a href='/home'>home</a></button>
                 <button><a href='/'>contact</a></button>
-                <button><a href='/'>Download the app</a></button>
             </section>
 
             <div className="logoland"><img src="/VISTALOGO.png" alt="Logoland" /></div>

@@ -193,7 +193,7 @@ function Calendar() {
             <li><a href="/home">Home</a></li>
             <li><a href="/Itinerary">Itinerary</a></li>
             <li><a href="/Discover">Discover</a></li>
-            <li><a href="/download-the-app">Download the app</a></li>
+            <li><a href="/pfp">Profile</a></li>
           </ul>
         </div>
         <div className="navbar-right">

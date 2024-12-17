@@ -49,6 +49,7 @@ const HomePage = () => {
           <li><a href="/home">Home</a></li>
           <li><a href="/Itinerary">Itinerary</a></li>
           <li><a href="/Discover">Discover</a></li>
+          <li><a href="/pfp">Profile</a></li>
         </ul>
       </div>
       

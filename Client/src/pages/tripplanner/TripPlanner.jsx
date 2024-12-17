@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate, useLocation } from 'react-router-dom';
-import './TripPlanner.css'; // Import the CSS file
+import './TripPlanner.css'; 
 import CityCountryAutocomplete from './CityAutocomplete';
 
 function TripPlanner() {
@@ -178,7 +178,7 @@ function TripPlanner() {
             <li><a href="/home">Home</a></li>
             <li><a href="/Itinerary">Itinerary</a></li>
             <li><a href="/Discover">Discover</a></li>
-            <li><a href="/download-the-app">Download the app</a></li>
+            <li><a href="/pfp">Profile</a></li>
           </ul>
         </div>
         <div className="navbar-right">
