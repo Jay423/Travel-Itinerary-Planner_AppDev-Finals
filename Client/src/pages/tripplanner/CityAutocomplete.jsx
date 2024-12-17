@@ -197,8 +197,8 @@ const cities = {
   "Zimbabwe": ["Harare", "Bulawayo", "Mutare"]
 };
 
-function CountryAutocomplete({ onCountrySelect }) {
-  const [inputValue, setInputValue] = useState('');
+function CountryAutocomplete({ onCountrySelect, initialCountry }) {
+  const [inputValue, setInputValue] = useState(initialCountry || '');
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [filteredCountries, setFilteredCountries] = useState([]);
 
@@ -401,6 +401,10 @@ function CountryAutocomplete({ onCountrySelect }) {
 "Zimbabwe"
   ];
 
+  useEffect(() => {
+    setInputValue(initialCountry || '');
+  }, [initialCountry]);
+
   const handleInputChange = (event) => {
     const query = event.target.value.toLowerCase();
     setInputValue(query);
@@ -439,10 +443,18 @@ function CountryAutocomplete({ onCountrySelect }) {
   );
 }
 
-function CityAutocomplete({ onCountrySelect, onCitySelect }) {
-  const [selectedCountry, setSelectedCountry] = useState('');
-  const [inputValue, setInputValue] = useState('');
+function CityAutocomplete({ onCountrySelect, onCitySelect, initialCountry, initialCity }) {
+  const [selectedCountry, setSelectedCountry] = useState(initialCountry || '');
+  const [inputValue, setInputValue] = useState(initialCity || '');
   const [filteredCities, setFilteredCities] = useState([]);
+
+  useEffect(() => {
+    setSelectedCountry(initialCountry || '');
+  }, [initialCountry]);
+
+  useEffect(() => {
+    setInputValue(initialCity || '');
+  }, [initialCity]);
 
   const handleCountrySelection = (country) => {
     setSelectedCountry(country);
@@ -474,7 +486,7 @@ function CityAutocomplete({ onCountrySelect, onCitySelect }) {
   return (
     <div className="city-autocomplete">
       <div className="autocomplete-container"> 
-        <CountryAutocomplete onCountrySelect={handleCountrySelection} />
+        <CountryAutocomplete onCountrySelect={handleCountrySelection} initialCountry={selectedCountry} />
         <div> 
           <input
             type="text"

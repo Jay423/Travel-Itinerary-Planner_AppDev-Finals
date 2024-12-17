@@ -1,40 +1,38 @@
 .city-autocomplete {
-    position: relative; /* Allows positioning the dropdown list */
+    position: relative; 
   }
   
   .city-autocomplete input {
-    width: 100%; /* Set input width */
-    padding: 10px; /* Add padding for aesthetics */
-    border: 1px solid #ccc; /* Add border */
+    width: 100%; 
+    padding: 10px; 
+    border: 1px solid #ccc; 
   }
-
-  
   
   .city-autocomplete .suggestions {
-    display: none; /* Initially hide the suggestions list */
-    position: absolute; /* Position the list below the input */
-    top: 100%; /* Offset from the bottom of the input */
-    left: 0; /* Align with the left side of the input */
-    width: 100%; /* Match the input width */
-    background-color: #fff; /* Set background color */
-    border: 1px solid #ccc; /* Add border */
-    list-style: none; /* Remove default list styling */
-    padding: 0; /* Remove default padding */
-    margin: 0; /* Remove default margin */
-    max-height: 200px; /* Adjust the maximum height as needed */
+    display: none;
+    position: absolute;
+    top: 100%; 
+    left: 0; 
+    width: 100%; 
+    background-color: #fff; 
+    border: 1px solid #ccc; 
+    list-style: none; 
+    padding: 0; 
+    margin: 0; 
+    max-height: 200px;
     overflow-y: auto;
   }
   
   .city-autocomplete .suggestions.active {
-    display: block; /* Show the suggestions list on focus or input */
+    display: block; 
   }
   
   .city-autocomplete .suggestions li {
-    padding: 10px; /* Padding for each suggestion item */
-    cursor: pointer; /* Set cursor to pointer on hover */
-    border-bottom: 1px solid #ddd; /* Add border between suggestions */
+    padding: 10px; 
+    cursor: pointer; 
+    border-bottom: 1px solid #ddd;
   }
   
   .city-autocomplete .suggestions li:hover {
-    background-color: #eee; /* Highlight hovered suggestion */
+    background-color: #eee; 
   }
