@@ -36,21 +36,8 @@ const Activity = sequelize.define('Activity', {
   timestamps: false,
 });
 
-const createActivity = async (activityData) => {
-  try {
-    const newActivity = await Activity.create({
-      activity_name: activityData.name,
-      activity_description: activityData.description,
-      venue: activityData.place,
-      date: activityData.date,
-      time_start: activityData.timeStart,
-      time_end: activityData.timeEnd,
-    });
-    return newActivity;
-  } catch (err) {
-    console.error('Error creating activity:', err);
-    throw err;
-  }
-};
+sequelize.sync()
+  .then(() => console.log('Activity table has been synchronized'))
+  .catch(err => console.error('Error syncing the Activity table:', err));
 
-module.exports = { Activity, createActivity };
+module.exports = { Activity };

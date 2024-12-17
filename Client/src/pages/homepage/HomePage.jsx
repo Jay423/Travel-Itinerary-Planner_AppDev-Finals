@@ -49,7 +49,6 @@ const HomePage = () => {
           <li><a href="/home">Home</a></li>
           <li><a href="/Itinerary">Itinerary</a></li>
           <li><a href="/Discover">Discover</a></li>
-          <li><a href="/download-the-app">Download the app</a></li>
         </ul>
       </div>
       
@@ -101,10 +100,24 @@ const HomePage = () => {
     <h4>Kyoto</h4>
     <button>View</button>
   </div>
-  </section>     
-            <section className='footer'>
-                <img src='/BotDisplay.png' alt='botdisp'></img>
-            </section>
+  </section>    
+
+
+<footer>
+  <p>&copy; 2024 Vista Travel. All rights reserved.</p>
+  <ul className="footer-links">
+    <li><a href="/about">About Us</a></li>
+    <li><a href="/privacy">Privacy Policy</a></li>
+    <li><a href="/terms">Terms of Service</a></li>
+  </ul>
+  <p>Contact us: <a href="mailto:vista@travel.com">vista@travel.com</a></p>
+  <div className="social-links">
+    <a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer">Facebook</a>
+    <a href="https://www.twitter.com" target="_blank" rel="noopener noreferrer">Twitter</a>
+    <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer">Instagram</a>
+  </div>
+</footer>
+
         </div>
     );
 };
