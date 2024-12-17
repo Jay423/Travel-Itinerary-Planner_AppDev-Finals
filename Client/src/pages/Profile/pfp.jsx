@@ -79,14 +79,6 @@ function UserProfile() {
         }
 
         if (isPasswordReset) {
-          if (!currentPassword) {
-            setError('Current password is required.');
-
-            setIsPasswordReset(false);
-            setCurrentPassword('');
-            setIsEdit(false);
-            return;
-          }
 
           const verifyResponse = await axios.post('http://localhost:5001/routes/verify-password', {
             currentPassword
@@ -98,10 +90,16 @@ function UserProfile() {
 
           if (!verifyResponse.data.valid) {
             setError('Current password is incorrect.');
-            // Reset state
+
             setIsPasswordReset(false);
             setCurrentPassword('');
             setIsEdit(false);
+            return;
+          }
+
+          if (!newPassword.trim()) {
+            setError('New password cannot be empty.');
+            setTimeout(() => setError(null), 1000); 
             return;
           }
         }
@@ -128,7 +126,14 @@ function UserProfile() {
         setNewPassword(''); 
 
       } catch (error) {
-        setError('Error updating user profile.');
+
+        if (error.response && error.response.data && error.response.data.message) {
+          setError(error.response.data.message);
+          setTimeout(() => setError(null), 1000); 
+        } else {
+          setError('Error updating user profile.');
+          setTimeout(() => setError(null), 1000); 
+        }
         console.error('Error updating user data:', error);
       }
 
@@ -350,6 +355,11 @@ function UserProfile() {
             <button onClick={handleResetPasswordClick}>Reset Password</button>
             <button>Logout</button>
           </div>
+          {error && (
+            <div className="error-message">
+              <p>{error}</p>
+            </div>
+          )}
         </div>
       </div>
     </div>

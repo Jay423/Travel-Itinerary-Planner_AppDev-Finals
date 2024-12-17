@@ -170,7 +170,7 @@ const verifyPassword = async (req, res) => {
 
     const passwordMatch = await bcrypt.compare(currentPassword, user.password);
     if (!passwordMatch) {
-      return res.status(401).json({ valid: false });
+      return res.status(401).json({ valid: false, message: 'Wrong password' }); 
     }
 
     res.json({ valid: true });
