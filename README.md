@@ -30,22 +30,25 @@ Creating an environment
     npm install
     npm run dev
 
-Install Client Dependencies
+``Install Client Dependencies
     npm install -D tailwindcss react-router-dom axios
     npx tailwindcss init
     Tailwind
-    Tailwind is a third-party utility-first CSS framework, It writes styles directly on the jsx file
-    without creating a CSS file. It would be easier to style in a frontend without looking where
-    your CSS file directory is.
     Router DOM
     This is to handle the routing in react and it is found in the main.jsx file.
+    @fortawesome/free-solid-svg-icons
+    npm list @fortawesome/free-solid-svg-icons``
+
+Tailwind is a third-party utility-first CSS framework, It writes styles directly on the jsx file
+    without creating a CSS file. It would be easier to style in a frontend without looking where
+    your CSS file directory is.
 
 Create Server folder for the backends:
-    Installing Dependencies
+```Installing Dependencies
         npm install bcrypt body-parser dotenv express express-rate-limit joi
         jsonwebtoken morgan mysql mysql2 sequelize sequelize-cli pg axios cors nodemon--save-dev
         To run Nodemon add this to the scripts in 
-        package.json
+        package.json```
         file.
     Nodemon
         "start": "nodemon app.js"
