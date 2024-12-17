@@ -34,10 +34,9 @@ const getAllUsers = async () => {
 
 const registerUser = async (data) => {
     try {
-        const hashedPassword = await bcrypt.hash(data.password, 10);
         const newUser = await User.create({
             email: data.email,
-            password: hashedPassword,
+            password: data.password,
         });
         return newUser;
     } catch (err) {

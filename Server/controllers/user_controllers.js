@@ -85,7 +85,12 @@ const loginUserController = async (req, res) => {
       return res.status(401).json({ message: 'Invalid credentials' });
     }
 
-    const accessToken = jwt.sign({ email: user.email }, process.env.JWT_SECRET, { expiresIn: '1h' });
+    const payload = {
+      id: user.id,        // User ID added here
+      email: user.email,  // Email can be included if needed
+    };
+
+    const accessToken = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '1h' });
     console.log('Generated token:', accessToken);
 
     res.status(200).json({ token: accessToken, message: 'Login successful' });

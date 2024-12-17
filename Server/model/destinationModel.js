@@ -1,6 +1,5 @@
 const { Sequelize, DataTypes } = require('sequelize');
 const sequelize = require('../config/databasepg');
-const { createDestinationActivities } = require('./destinationActivityModel');
 
 const Destination = sequelize.define('Destination', {
   id: {
@@ -76,29 +75,4 @@ const Destination = sequelize.define('Destination', {
   timestamps: true,
 });
 
-const createDestination = async (tripData) => {
-  try {
-    const newTrip = await Destination.create({
-      from: tripData.from,
-      to: tripData.to,
-      departureDate: tripData.departureDate,
-      departureTime: tripData.departureTime,
-      arrivalDate: tripData.arrivalDate,
-      arrivalTime: tripData.arrivalTime,
-      title: tripData.title,
-      destinationCountry: tripData.destinationCountry,
-      destinationCity: tripData.destinationCity,
-    });
-
-    return newTrip;
-  } catch (err) {
-    console.error('Error creating trip:', err);
-    throw err;
-  }
-};
-
-sequelize.sync()
-  .then(() => console.log('Destination table has been synchronized'))
-  .catch(err => console.error('Error syncing the Destination table:', err));
-
-module.exports = { Destination, createDestination };
+module.exports = { Destination };
