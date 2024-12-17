@@ -13,10 +13,8 @@ function UserProfile() {
   const [number, setNumber] = useState('');
   const [birthday, setBirthday] = useState('');
   const [gender, setGender] = useState('');
-  const [password, setPassword] = useState('********'); // Always display masked password
   const [currentPassword, setCurrentPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
-  const [passwordVisible, setPasswordVisible] = useState(false);
   const [isPasswordReset, setIsPasswordReset] = useState(false);
   const [error, setError] = useState(null);
 
@@ -178,7 +176,7 @@ function UserProfile() {
     setIsPasswordReset(true);
     setNewPassword('');
     setCurrentPassword('');
-    setIsEdit(true); // Ensure the form is in edit mode
+    setIsEdit(true); 
   };
 
   return (
