@@ -1,4 +1,4 @@
-const { registerUser, getAllUsers } = require('../model/userModel');
+const { registerUser, getAllUsers, getUserById } = require('../model/userModel');
 require("dotenv").config();
 const jwt = require('jsonwebtoken');
 const Joi = require('joi');
@@ -107,18 +107,19 @@ const loginUserController = async (req, res) => {
 
 const fetchUserProfile = async (req, res) => {
   try {
-      if (!req.user || !req.user.email) {
-        console.error('req.user is undefined or missing email:', req.user);
-          return res.status(401).json({ error: 'Unauthorized' });
-      }
-      const users = await getAllUsers(); 
-      const userProfile = users.find(user => user.email === req.user.email);
-      if (!userProfile) {
-          return res.status(404).json({ error: 'User not found' });
-      }
-      res.json(userProfile); 
+    if (!req.user || !req.user.id) {
+      return res.status(401).json({ error: 'Unauthorized' });
+    }
+
+    const userProfile = await getUserById(req.user.id);
+    if (!userProfile) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+    
+    res.json(userProfile); 
+    console.log('User Profile:', userProfile);
   } catch (error) {
-      res.status(500).json({ error: error.message });
+    res.status(500).json({ error: error.message });
   }
 };
 

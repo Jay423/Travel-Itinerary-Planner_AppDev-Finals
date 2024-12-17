@@ -67,12 +67,12 @@ const registerUser = async (data) => {
     }
 };
 
-const findUserByEmail = async (email) => {
+const getUserById = async (id) => {
   try {
-    const user = await User.findOne({ where: { email } });
+    const user = await User.findByPk(id);
     return user;
   } catch (err) {
-    console.error('Error finding user by email:', err);
+    console.error('Error fetching user by ID:', err);
     throw err;
   }
 };
@@ -81,4 +81,4 @@ sequelize.sync()
   .then(() => console.log('User table has been synchronized'))
   .catch(err => console.error('Error syncing the User table:', err));
 
-module.exports = { registerUser, getAllUsers, findUserByEmail };
+module.exports = { registerUser, getAllUsers, getUserById };
