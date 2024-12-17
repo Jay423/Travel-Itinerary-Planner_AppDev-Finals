@@ -1,15 +1,54 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import './pfp.css';
 
 function UserProfile() {
   const [profileImage, setProfileImage] = useState(null);
   const [isEdit, setIsEdit] = useState(false);
-  const [name, setName] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [number, setNumber] = useState('');
   const [birthday, setBirthday] = useState('');
   const [gender, setGender] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const token = localStorage.getItem('authToken');
+        
+        if (!token) {
+          setError('No auth token found. Please log in.');
+          window.location.href = '/login';
+          return;
+        }
+        
+        const response = await axios.get('http://localhost:5001/routes/pfp', {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        });
+
+        const data = response.data;
+        setFirstName(data.first_name);
+        setLastName(data.last_name);
+        setEmail(data.email);
+        setPassword(data.password);
+        setNumber(data.number);
+        setBirthday(data.birthday);
+        setGender(data.gender);
+
+      } catch (error) {
+        setError('Error fetching user profile.');
+        console.error('Error fetching user data:', error);
+        window.location.href = '/login';
+      }
+    };
+
+    fetchData();
+  }, []);
 
   const handleImageChange = (event) => {
     const file = event.target.files[0];
@@ -34,8 +73,11 @@ function UserProfile() {
     const { name, value } = event.target;
 
     switch (name) {
-      case 'name':
-        setName(value);
+      case 'firstName':
+        setFirstName(value);
+        break;
+      case 'lastName':
+        setLastName(value);
         break;
       case 'email':
         setEmail(value);
@@ -72,7 +114,7 @@ function UserProfile() {
         <div className="navbar-right">
           <span className="wcb">
             <p>Welcome back,</p>
-            <div className="username"><p>Hanni Pham</p></div>
+            <div className="username"><p>{firstName} {lastName}</p></div>
           </span>
           <a href="/">Log out</a>
           <button className="notification-button">
@@ -83,40 +125,53 @@ function UserProfile() {
       </nav>
 
       <div className="profile-container">
-      <div className="profile-image-wrapper">
-  <div className="profile-image-container">
-    {profileImage ? (
-      <img src={profileImage} alt="Profile" />
-    ) : (
-      <div className="image-placeholder">
-        <p>Click to Upload</p>
-        <input type="file" accept="image/*" onChange={handleImageChange} />
-      </div>
-    )}
-  </div>
-  <button onClick={resetProfileImage} className="reset-image-button">
-    Reset Image
-  </button>
-</div>
-
-
+        <div className="profile-image-wrapper">
+          <div className="profile-image-container">
+            {profileImage ? (
+              <img src={profileImage} alt="Profile" />
+            ) : (
+              <div className="image-placeholder">
+                <p>Click to Upload</p>
+                <input type="file" accept="image/*" onChange={handleImageChange} />
+              </div>
+            )}
+          </div>
+          <button onClick={resetProfileImage} className="reset-image-button">
+            Reset Image
+          </button>
+        </div>
 
         <div className="profile-info">
-        <div className="form-group">
-  <label htmlFor="name">Name:</label>
-  {isEdit ? (
-    <input
-      type="text"
-      id="name"
-      name="name"
-      value={name}
-      onChange={handleInputChange}
-      placeholder="Enter your name"
-    />
-  ) : (
-    <p>{name}</p>
-  )}
-</div>
+          <div className="form-group">
+            <label htmlFor="firstName">First Name:</label>
+            {isEdit ? (
+              <input
+                type="text"
+                id="firstName"
+                name="firstName"
+                value={firstName}
+                onChange={handleInputChange}
+                placeholder="Enter your first name"
+              />
+            ) : (
+              <p>{firstName || "N/A"}</p>
+            )}
+          </div>
+          <div className="form-group">
+            <label htmlFor="lastName">Last Name:</label>
+            {isEdit ? (
+              <input
+                type="text"
+                id="lastName"
+                name="lastName"
+                value={lastName}
+                onChange={handleInputChange}
+                placeholder="Enter your last name"
+              />
+            ) : (
+              <p>{lastName || "N/A"}</p>
+            )}
+          </div>
           <div className="form-group">
             <label htmlFor="email">Email:</label>
             {isEdit ? (
@@ -126,13 +181,12 @@ function UserProfile() {
                 name="email"
                 value={email}
                 onChange={handleInputChange}
-                 placeholder="Enter your email"
+                placeholder="Enter your email"
               />
             ) : (
-              <p>{email}</p>
+              <p>{email || "N/A"}</p>
             )}
           </div>
-
           <div className="form-group">
             <label htmlFor="password">Password:</label>
             {isEdit ? (
@@ -142,13 +196,12 @@ function UserProfile() {
                 name="password"
                 value={password}
                 onChange={handleInputChange}
-                 placeholder="Enter your password"
+                placeholder="Enter your password"
               />
             ) : (
-              <p>{password}</p>
+              <p>{password || "N/A"}</p>
             )}
           </div>
-
           <div className="form-group">
             <label htmlFor="number">Number:</label>
             {isEdit ? (
@@ -158,13 +211,12 @@ function UserProfile() {
                 name="number"
                 value={number}
                 onChange={handleInputChange}
-                 placeholder="Enter your number"
+                placeholder="Enter your number"
               />
             ) : (
-              <p>{number}</p>
+              <p>{number || "N/A"}</p>
             )}
           </div>
-
           <div className="form-group">
             <label htmlFor="birthday">Birthday:</label>
             {isEdit ? (
@@ -176,10 +228,9 @@ function UserProfile() {
                 onChange={handleInputChange}
               />
             ) : (
-              <p>{birthday}</p>
+              <p>{birthday || "N/A"}</p>
             )}
           </div>
-
           <div className="form-group">
             <label htmlFor="gender">Gender:</label>
             {isEdit ? (
@@ -194,10 +245,9 @@ function UserProfile() {
                 <option value="other">Other</option>
               </select>
             ) : (
-              <p>{gender.charAt(0).toUpperCase() + gender.slice(1)}</p>
+              <p>{gender ? gender.charAt(0).toUpperCase() + gender.slice(1) : ''}</p>
             )}
           </div>
-
           <div className="button-group">
             <button onClick={handleEditClick}>
               {isEdit ? 'Save' : 'Edit'}

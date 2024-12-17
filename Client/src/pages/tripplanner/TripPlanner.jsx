@@ -269,7 +269,7 @@ function TripPlanner() {
                 <button type="button" onClick={handleDelete}>Delete</button>
               </div>
             ) : (
-              <button type="button" onClick={handleSubmit}>Create Trip</button>
+              <button type="button" onClick={handleClick}>Create Trip</button>
             )}
           </form>
         </div>
