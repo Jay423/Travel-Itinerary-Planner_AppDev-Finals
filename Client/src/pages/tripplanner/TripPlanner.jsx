@@ -125,7 +125,7 @@ function TripPlanner() {
           Authorization: `Bearer ${token}`,
         },
       });
-      navigate('/calendar');
+      navigate('/calendar', { state: { shouldRefetch: true } });
     } catch (error) {
       console.error('Error saving trip:', error);
     }
@@ -139,7 +139,7 @@ function TripPlanner() {
           Authorization: `Bearer ${token}`,
         },
       });
-      navigate('/calendar');
+      navigate('/calendar', { state: { shouldRefetch: true } });
     } catch (error) {
       console.error('Error deleting trip:', error);
     }
@@ -155,7 +155,7 @@ function TripPlanner() {
         }
       });
       console.log('Trip created:', response.data);
-      navigate('/calendar'); // Navigate back to the calendar page
+      navigate('/calendar', { state: { shouldRefetch: true } });
     } catch (error) {
       console.error('Error creating trip:', error);
     }

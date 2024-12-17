@@ -17,6 +17,26 @@ const User = sequelize.define('User', {
     type: DataTypes.STRING,
     allowNull: false,
   },
+  first_name: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  last_name: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  gender: {
+    type: DataTypes.STRING,
+    allowNull: true,
+  },
+  birthday: {
+    type: DataTypes.DATE,
+    allowNull: true,
+  },
+  number: {
+    type: DataTypes.STRING,
+    allowNull: true,
+  },
 }, {
   tableName: 'users', 
   timestamps: false,   
@@ -37,6 +57,8 @@ const registerUser = async (data) => {
         const newUser = await User.create({
             email: data.email,
             password: data.password,
+            first_name: data.first_name,
+            last_name: data.last_name,
         });
         return newUser;
     } catch (err) {

@@ -4,7 +4,7 @@ import '/src/pages/login/loginpage.css';
 import logo from '../../assets/logoFinal.png';
 
 function App() {
-  const [data, setData] = useState({ email: '', password: '' });
+  const [data, setData] = useState({ email: '', password: '', first_name: '', last_name: '' });
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
 
@@ -18,8 +18,8 @@ function App() {
     setError('');
     setSuccess('');
 
-    if (!data.email || !data.password) {
-      setError('Both fields are required!');
+    if (!data.email || !data.password || !data.first_name || !data.last_name) {
+      setError('All fields are required!');
       return;
     }
 
@@ -27,7 +27,7 @@ function App() {
       const response = await axios.post('http://localhost:5001/routes/register', data);
 
       if (response.status === 201) {
-        setData({ email: '', password: '' }); 
+        setData({ email: '', password: '', first_name: '', last_name: '' }); 
         setSuccess(response.data.message || 'Registration successful!');
       }
       
@@ -64,19 +64,19 @@ function App() {
           />
 
           <input
-            type="fname"
-            name="fname"
+            type="text"
+            name="first_name"
             placeholder="Enter your First Name"
-            value={data.fname}
+            value={data.first_name}
             onChange={handleInputChange}
             required
           />
 
           <input
-            type="lname"
-            name="lname"
+            type="text"
+            name="last_name"
             placeholder="Enter your Last Name"
-            value={data.lname}
+            value={data.last_name}
             onChange={handleInputChange}
             required
           />
