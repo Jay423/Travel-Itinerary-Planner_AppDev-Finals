@@ -181,14 +181,6 @@ function TripPlanner() {
     }
   };
 
-  const handleClick = () => {
-    if (!tripData.from || !tripData.to || !tripData.departureDate || !tripData.departureTime || !tripData.arrivalDate || !tripData.arrivalTime || !tripData.title || !tripData.destinationCountry || !tripData.destinationCity) {
-      setError('All required fields must be provided.');
-    } else {
-      handleSubmit();
-    }
-  };
-
   return (
     <div>
       <nav className="navbar">
@@ -269,7 +261,7 @@ function TripPlanner() {
                 <button type="button" onClick={handleDelete}>Delete</button>
               </div>
             ) : (
-              <button type="button" onClick={handleClick}>Create Trip</button>
+              <button type="button" onClick={handleSubmit}>Create Trip</button>
             )}
           </form>
         </div>

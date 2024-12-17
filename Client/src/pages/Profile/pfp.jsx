@@ -13,10 +13,8 @@ function UserProfile() {
   const [number, setNumber] = useState('');
   const [birthday, setBirthday] = useState('');
   const [gender, setGender] = useState('');
-  const [password, setPassword] = useState('********'); // Always display masked password
   const [currentPassword, setCurrentPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
-  const [passwordVisible, setPasswordVisible] = useState(false);
   const [isPasswordReset, setIsPasswordReset] = useState(false);
   const [error, setError] = useState(null);
 
@@ -81,14 +79,6 @@ function UserProfile() {
         }
 
         if (isPasswordReset) {
-          if (!currentPassword) {
-            setError('Current password is required.');
-
-            setIsPasswordReset(false);
-            setCurrentPassword('');
-            setIsEdit(false);
-            return;
-          }
 
           const verifyResponse = await axios.post('http://localhost:5001/routes/verify-password', {
             currentPassword
@@ -100,10 +90,16 @@ function UserProfile() {
 
           if (!verifyResponse.data.valid) {
             setError('Current password is incorrect.');
-            // Reset state
+
             setIsPasswordReset(false);
             setCurrentPassword('');
             setIsEdit(false);
+            return;
+          }
+
+          if (!newPassword.trim()) {
+            setError('New password cannot be empty.');
+            setTimeout(() => setError(null), 1000); 
             return;
           }
         }
@@ -130,7 +126,14 @@ function UserProfile() {
         setNewPassword(''); 
 
       } catch (error) {
-        setError('Error updating user profile.');
+
+        if (error.response && error.response.data && error.response.data.message) {
+          setError(error.response.data.message);
+          setTimeout(() => setError(null), 1000); 
+        } else {
+          setError('Error updating user profile.');
+          setTimeout(() => setError(null), 1000); 
+        }
         console.error('Error updating user data:', error);
       }
 
@@ -178,7 +181,7 @@ function UserProfile() {
     setIsPasswordReset(true);
     setNewPassword('');
     setCurrentPassword('');
-    setIsEdit(true); // Ensure the form is in edit mode
+    setIsEdit(true); 
   };
 
   return (
@@ -331,15 +334,16 @@ function UserProfile() {
             <label htmlFor="gender">Gender:</label>
             {isEdit ? (
               <select
-                id="gender"
-                name="gender"
-                value={gender}
-                onChange={handleInputChange}
-              >
-                <option value="male">Male</option>
-                <option value="female">Female</option>
-                <option value="other">Other</option>
-              </select>
+              id="gender"
+              name="gender"
+              value={gender}
+              onChange={handleInputChange}
+            >
+              <option value="">Select Gender</option> 
+              <option value="male">Male</option>
+              <option value="female">Female</option>
+              <option value="other">Other</option>
+            </select>
             ) : (
               <p>{gender ? gender.charAt(0).toUpperCase() + gender.slice(1) : ''}</p>
             )}
@@ -349,8 +353,13 @@ function UserProfile() {
               {isEdit ? 'Save' : 'Edit'}
             </button>
             <button onClick={handleResetPasswordClick}>Reset Password</button>
-            <button>Logout</button>
+            <button onClick={() => { localStorage.removeItem('authToken'); window.location.href = '/'; }}>Logout</button>
           </div>
+          {error && (
+            <div className="error-message">
+              <p>{error}</p>
+            </div>
+          )}
         </div>
       </div>
     </div>
