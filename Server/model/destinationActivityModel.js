@@ -7,7 +7,7 @@ const DestinationActivity = sequelize.define('DestinationActivity', {
     primaryKey: true,
     autoIncrement: true,
   },
-  tripModel_id: {
+  destination_id: {
     type: DataTypes.INTEGER,
     references: {
       model: 'Destination',
@@ -15,16 +15,24 @@ const DestinationActivity = sequelize.define('DestinationActivity', {
     },
     allowNull: false,
   },
+  activity_id: {
+    type: DataTypes.INTEGER,
+    references: {
+      model: 'Activity',
+      key: 'activity_id',
+    },
+    allowNull: true, // Allow NULL values
+  },
 }, {
   tableName: 'Destination_Activities',
   timestamps: false,
 });
 
-const createDestinationActivities = async (tripModelId) => {
+const createDestinationActivities = async (destinationModelId, activityId) => {
   try {
-    console.log('Creating destination activities for trip:', tripModelId);
     const destinationActivity = {
-      tripModel_id: tripModelId,
+      destination_id: destinationModelId,
+      activity_id: activityId,
     };
     await DestinationActivity.create(destinationActivity);
   } catch (err) {

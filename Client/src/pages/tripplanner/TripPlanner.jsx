@@ -96,14 +96,12 @@ function TripPlanner() {
     event.preventDefault();
     try {
       const token = localStorage.getItem('authToken');
-
       const response = await axios.post('http://localhost:5001/routes/trip', tripData, {
         headers: {
           Authorization: `Bearer ${token}`
         }
       });
       console.log('Trip created:', response.data);
-
     } catch (error) {
       console.error('Error creating trip:', error);
     }
