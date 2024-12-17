@@ -130,6 +130,22 @@ function UserProfile() {
           </div>
 
           <div className="form-group">
+            <label htmlFor="password">Password:</label>
+            {isEdit ? (
+              <input
+                type="text"
+                id="password"
+                name="password"
+                value={password}
+                onChange={handleInputChange}
+                 placeholder="Enter your password"
+              />
+            ) : (
+              <p>{password}</p>
+            )}
+          </div>
+
+          <div className="form-group">
             <label htmlFor="number">Number:</label>
             {isEdit ? (
               <input
