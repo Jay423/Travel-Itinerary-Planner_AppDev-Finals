@@ -9,6 +9,7 @@ function UserProfile() {
   const [number, setNumber] = useState('');
   const [birthday, setBirthday] = useState('');
   const [gender, setGender] = useState('');
+  const [password, setPassword] = useState('');
 
   const handleImageChange = (event) => {
     const file = event.target.files[0];
@@ -47,6 +48,9 @@ function UserProfile() {
         break;
       case 'gender':
         setGender(value);
+        break;
+      case 'password':
+        setPassword(value);
         break;
       default:
         break;
